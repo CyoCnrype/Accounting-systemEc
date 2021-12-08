@@ -58,15 +58,17 @@ public class UserProfilePagesController {
 
 		boolean result = false;
 		UserInfo currentUserInfo = UserInfoRepository.GetUserByLogin(account, password);
-		if (currentUserInfo != null) {
+		if (currentUserInfo != null) {// 有抓到值=登入成功
 			// if (UserInfoRepository.GetUserByLogin(account, password) != null) {
 			result = true;
 			// 寫入session
 			// 12/7實作預定
 			session.setAttribute("LoginState", currentUserInfo);
+			int userLevel = currentUserInfo.getUserLevel();
+			session.setAttribute("UserLevel", userLevel);
 		}
 
-		if (result == true) {// 如果成功
+		if (result == true) {// 如果登入成功
 			
 			redirAttrs.addFlashAttribute("message", "登入成功");			
 			String url = "/AccountingPages/AccountingList"; // 重新導向到指定的url

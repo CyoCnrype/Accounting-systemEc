@@ -10,6 +10,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" media="all"
 	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+	
+<style>
+.menu {
+position: fixed;
+}
+
+</style>
+	
 <script type="text/javascript"
 	th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 <script type="text/javascript"
@@ -30,11 +38,23 @@
 <!--  IsPostback -->
 <!--  message洞 -->
 <script th:inline="javascript">
-        var message = /*[[${message}]]*/ "";
-        if(message != null)
-        alert(message);
+	var message = /*[[${message}]]*/"";
+	if (message != null)
+		alert(message);
 </script>
 <!--  message洞 -->
+<!--  使用者圖片 -->
+<script th:inline="javascript">
+	$(function() {
+		var userLevel = "[[${session.UserLevel}]]";
+		if (userLevel == 0)
+			document.getElementById('userLevel').src = "https://upload.cc/i1/2021/12/08/QrlPpw.png";
+		else if (userLevel == 1)
+			document.getElementById('userLevel').src = "https://upload.cc/i1/2021/12/08/9Nz7Jm.png";
+	});
+</script>
+<!--  使用者圖片 -->
+
 </head>
 
 
@@ -43,7 +63,7 @@
 	<div>
 		<table>
 			<tr>
-				<td class="collapse" id="navbarToggleExternalContent" valign="top"
+				<td class="collapse menu"  id="navbarToggleExternalContent" valign="top"
 					rowspan="2" height="930px" width="300px"
 					style="background-color: #e3f2fd"><br />
 					<h2>&nbsp;&nbsp;流水帳管理系統</h2> <!--左側超連結由此編輯 -->
@@ -93,11 +113,12 @@
 								<button class="btn btn-outline-success" type="submit"
 									style="height: 50%; margin-top: 30px; display: inline-block; vertical-align: middle">Search</button>
 								<a class="btn btn-sm btn-success" th:href="@{/Default/Logout}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-										fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                        <path
-											d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                           </svg>
+								<img width="50" height="50" id="userLevel">
+<!-- 									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" -->
+<!-- 										fill="currentColor" class="bi bi-person" viewBox="0 0 16 16"> -->
+<!--                         <path -->
+<!-- 											d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" /> -->
+<!--                            </svg> -->
 								</a>
 							</form>
 						</div>
