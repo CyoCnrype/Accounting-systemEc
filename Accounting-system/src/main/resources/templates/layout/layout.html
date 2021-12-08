@@ -15,7 +15,6 @@
 .menu {
 position: fixed;
 }
-
 </style>
 	
 <script type="text/javascript"
@@ -63,7 +62,7 @@ position: fixed;
 	<div>
 		<table>
 			<tr>
-				<td class="collapse menu"  id="navbarToggleExternalContent" valign="top"
+				<td class="collapse"  id="navbarToggleExternalContent" valign="top"
 					rowspan="2" height="930px" width="300px"
 					style="background-color: #e3f2fd"><br />
 					<h2>&nbsp;&nbsp;流水帳管理系統</h2> <!--左側超連結由此編輯 -->
@@ -112,7 +111,8 @@ position: fixed;
 									style="height: 50%; margin-top: 30px; display: inline-block; vertical-align: middle">
 								<button class="btn btn-outline-success" type="submit"
 									style="height: 50%; margin-top: 30px; display: inline-block; vertical-align: middle">Search</button>
-								<a class="btn btn-sm btn-success" th:href="@{/Default/Logout}">
+								<a th:href="@{/Default/Logout}">
+								<!--<a class="btn btn-sm btn-success" th:href="@{/Default/Logout}">-->
 								<img width="50" height="50" id="userLevel">
 <!-- 									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" -->
 <!-- 										fill="currentColor" class="bi bi-person" viewBox="0 0 16 16"> -->

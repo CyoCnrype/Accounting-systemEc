@@ -24,7 +24,7 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,Integer>{
     		+ "      ,[name]"
     		+ "      ,[pwd]"
     		+ "      ,[user_level]"
-    		+ "  FROM [SampleDB].[dbo].[user_info]"
+    		+ "  FROM [AccNoteJava].[dbo].[user_info]"
     		+"  WHERE [account] =:account AND [pwd]=:pwd"
     		, nativeQuery = true)
     UserInfo GetUserByLogin(@Param("account") String account , @Param("pwd") String pwd);

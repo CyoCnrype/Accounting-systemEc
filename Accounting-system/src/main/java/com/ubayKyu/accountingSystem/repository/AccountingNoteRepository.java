@@ -13,7 +13,7 @@ public interface AccountingNoteRepository extends JpaRepository<AccountingNote, 
 	// 按照時間排列查表(因效率不佳廢棄)
 	@Query(value = "SELECT  [accid]" + "      ,[act_type]" + "      ,[amount]" + "      ,[body]" + "      ,[caption]"
 			+ "      ,[categoryid]" + "      ,[create_date]" + "      ,[userid]"
-			+ "  FROM [SampleDB].[dbo].[accounting_note]" + "  ORDER BY [create_date] ASC", nativeQuery = true)
+			+ "  FROM [AccNoteJava].[dbo].[accounting_note]" + "  ORDER BY [create_date] ASC", nativeQuery = true)
 	List<AccountingNote> GetAccOrderbyASC();
 
 	// 查詢最早一筆時間
