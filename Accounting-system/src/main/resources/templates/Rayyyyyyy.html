@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+
+</title>
+        <style type="text/css">
+        #header {
+            width: 1250px;
+            background-color: darkgoldenrod;
+            font-size: x-large;
+        }
+        #lblTitle {
+            color: white;
+        }
+        #roomname {
+            color: white;
+        }
+        #copywrite {
+            color: white;
+        }
+        #body {
+            width: 1250px;
+            height: 450px;
+            background-color: khaki;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        #footer {
+            width: 1250px;
+            background-color: darkgoldenrod;
+        }
+        #tablebody {
+            background-color: white;
+            border: solid;
+            margin-top: 40px;
+            margin-left: 450px;
+            width: 400px;
+        }
+        #btnLogin {
+            margin-top: 20px;
+            margin-left: 200px;
+        }
+        .headerleft {
+            width: 450px;
+        }
+        .headermiddle {
+            width: 730px;
+        }
+    </style>
+    
+</head>
+<body>
+    <form method="post" action="./Login.aspx" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="vSuP7S1o6+YZPMRcz/VpoxDrf6s8HwntYP92ghPLMRB6uufVuB4wGmwuknaafF+EImF0TBv4FEELu5kPmx8jvhU2INYJXbYI4NlDy+toEMA=" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="C2EE9ABB" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="T9VZexXgCPZiMX0B6lbUGwPkUVdx+/SuJrBpCsmWIvPbBCwQXM7DfAOIPARwcN0r2zNDSsQSWnWY6zpt5bnwXD3aFmMHoVz8DNEfRvR2Mgj7FpwtYN4ONBZIVCmBDbq4MTzHyl/f+n+B18KllE5PvIIEeLnQyKJhQyKLimsNmmwM3Fwf/8bUylLRFkzWTLxu9RPQ0N3/w+dCcIzHueLrYQ==" />
+</div>
+
+         <div id="header">
+            <table height="100" class="auto-style2">
+                <tr>
+                    <td class="auto-style4">
+                        <span id="lblTitle">
+                        <h1>流水帳管理系統</h1></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="body"><br />
+            <table height="300" id="tablebody" class="auto-style7">
+                <tr>
+                    <td class="auto-style1">
+
+                        
+
+
+    
+    <table border="0" align="center" valign="center">
+        <tr align="center">
+            <td>
+                <span id="ContentPlaceHolder1_Label1"><h2>用戶登入[[${ray}]]</h2></span>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>
+                <p class="auto-style3">
+                    Fill in the Account and PWD to log in this awesome AccountingNote System.
+                </p>
+            </td>
+        </tr>
+        <tr align="center">
+            <td>
+                <img src="Images/account.png" style="height: 20px; width: 20px" id="icon1" /> 帳號 &nbsp &nbsp
+                <input name="ctl00$ContentPlaceHolder1$txtAccount" type="text" id="ContentPlaceHolder1_txtAccount" />
+            </td>
+        </tr>
+        <tr align="center">
+            <td>
+                <img src="Images/password.png" style="height: 20px; width: 20px" id="icon2" /> 密碼 &nbsp &nbsp
+            <input name="ctl00$ContentPlaceHolder1$txtPWD" type="password" id="ContentPlaceHolder1_txtPWD" />
+            </td>
+        </tr>
+        <tr align="center">
+            <td>
+                <input type="submit" name="ctl00$ContentPlaceHolder1$btnLogin" value="登入" id="ContentPlaceHolder1_btnLogin" /><br />
+                <br />
+                
+                新增測試項目<br />
+                <input type="submit" name="ctl00$ContentPlaceHolder1$btnNewAccount" value="申請帳號" id="ContentPlaceHolder1_btnNewAccount" />
+                <input type="submit" name="ctl00$ContentPlaceHolder1$btnNewPWD" value="忘記密碼" id="ContentPlaceHolder1_btnNewPWD" />
+                
+                
+            </td>
+        </tr>
+        
+    </table>
+
+
+                        
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+        <div id="footer">
+            <table>
+                <tr>
+                    <td class="headerleft">
+                        <span id="roomname"><h4>7302 黃色小鴨戰隊</h4></span>
+                    </td>
+                    <td class="headermiddle">
+                        <span id="copywrite"><h4>Copyright © [2021] [Yellow Duck]. 2021.08.05</h4></span>
+                    </td>
+                    <td>
+                        <img src="Images/icon.png" style="height: 63px; width: 68px" id="icon" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+    </form>
+</body>
+</html>

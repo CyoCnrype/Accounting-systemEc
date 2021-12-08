@@ -1,0 +1,113 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<title>Thymeleaf layout</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" media="all"
+	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+
+
+<!--  IsPostback -->
+<script>
+	function forward() {
+		setTimeout("forward()", 100);
+		history.forward();
+	}
+	if (document.all)
+		history.forward(); //for IE、Edge
+	else
+		setTimeout("forward()", 100); //for Chrome、Firefox
+</script>
+<!--  IsPostback -->
+<!--  message洞 -->
+<script th:inline="javascript">
+        var message = /*[[${message}]]*/ "";
+        if(message != null)
+        alert(message);
+</script>
+<!--  message洞 -->
+</head>
+
+
+
+<body>
+	<div>
+		<table>
+			<tr>
+				<td class="collapse" id="navbarToggleExternalContent" valign="top"
+					rowspan="2" height="930px" width="300px"
+					style="background-color: #e3f2fd"><br />
+					<h2>&nbsp;&nbsp;流水帳管理系統</h2> <!--左側超連結由此編輯 -->
+					<div id="divManagerBc">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">管理者後台</li>
+								<li class="breadcrumb-item active" aria-current="page"><a
+									href="/BackEndPages/UserList">會員管理</a></li>
+							</ol>
+						</nav>
+					</div>
+
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">後台管理</li>
+							<li class="breadcrumb-item active" aria-current="page"><a
+								href="/UserProfilePages/UserProfile">個人資訊</a></li>
+						</ol>
+					</nav>
+
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">流水帳紀錄</li>
+							<li class="breadcrumb-item active" aria-current="page"><a
+								href="/AccountingPages/AccountingList">流水帳管理</a></li>
+							<li class="breadcrumb-item active" aria-current="page"><a
+								href="/AccountingPages/CategoryList">流水帳分類管理</a></li>
+						</ol>
+					</nav></td>
+				<!--左側超連結由此編輯 END -->
+
+				<td height="50px" width="1300px">
+					<nav class="navbar navbar-light bg-light">
+						<div class="container-fluid">
+							<button class="navbar-toggler" type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#navbarToggleExternalContent"
+								aria-controls="navbarToggleExternalContent"
+								aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<form class="d-flex">
+								<input class="form-control me-2" type="search"
+									placeholder="Search" aria-label="Search"
+									style="height: 50%; margin-top: 30px; display: inline-block; vertical-align: middle">
+								<button class="btn btn-outline-success" type="submit"
+									style="height: 50%; margin-top: 30px; display: inline-block; vertical-align: middle">Search</button>
+								<a class="btn btn-sm btn-success" th:href="@{/Default/Logout}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+										fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path
+											d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                           </svg>
+								</a>
+							</form>
+						</div>
+					</nav>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><br /> <br />
+					<div layout:fragment="content" class="container"></div></td>
+			</tr>
+		</table>
+	</div>
+</body>

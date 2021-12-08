@@ -1,0 +1,111 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<title>AccountingList</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<table>
+			<tr>
+				<td colspan="2">
+					<h3>流水帳管理</h3>
+					流水帳紀錄
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+			fill="currentColor" class="bi bi-caret-right-fill"
+			viewBox="0 0 16 16">
+     <path
+				d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+   </svg>
+		流水帳管理 <br />
+		<br />
+				</td>
+			</tr>
+			<tr>
+				<td><input type="submit"
+					name="ctl00$ContentPlaceHolder1$btnCreate" value="Add"
+					id="ContentPlaceHolder1_btnCreate" /> <input type="submit"
+					name="ctl00$ContentPlaceHolder1$btnDelete" value="Delete"
+					id="ContentPlaceHolder1_btnDelete" /> <br /> <span
+					id="ContentPlaceHolder1_lblTotalAmount">Q 目前共花費NT$21元</span>
+
+					<div>
+						<table cellspacing="0" cellpadding="4"
+							id="ContentPlaceHolder1_gvAccountingList"
+							style="color: #333333; border-collapse: collapse;">
+							<tr
+								style="color: White; background-color: #507CD1; font-weight: bold;">
+								<th scope="col">建立日期</th>
+								<th scope="col">收 / 支</th>
+								<th scope="col">金額</th>
+								<th scope="col">標題</th>
+								<th scope="col">編輯</th>
+							</tr>
+							<tr style="background-color: #EFF3FB;">
+								<td>2021-08-19</td>
+								<td><span
+									id="ContentPlaceHolder1_gvAccountingList_lblActType_0"
+									style="color: Blue;">收入</span></td>
+								<td>35456</td>
+								<td>453645645655</td>
+								<td><a
+									href="/SystemAdmin/AccountingRecord/AccountingDetail.aspx?ID=5">修改</a>
+								</td>
+							</tr>
+							<tr style="background-color: White;">
+								<td>2021-08-19</td>
+								<td><span
+									id="ContentPlaceHolder1_gvAccountingList_lblActType_1"
+									style="color: Blue;">收入</span></td>
+								<td>123</td>
+								<td>QWE</td>
+								<td><a
+									href="/SystemAdmin/AccountingRecord/AccountingDetail.aspx?ID=6">修改</a>
+								</td>
+							</tr>
+							<tr style="background-color: #EFF3FB;">
+								<td>2021-08-12</td>
+								<td><span
+									id="ContentPlaceHolder1_gvAccountingList_lblActType_2"
+									style="color: Blue;">收入</span></td>
+								<td>123</td>
+								<td>QWE</td>
+								<td><a
+									href="/SystemAdmin/AccountingRecord/AccountingDetail.aspx?ID=7">修改</a>
+								</td>
+							</tr>
+							<tr style="background-color: White;">
+								<td>2021-08-12</td>
+								<td><span
+									id="ContentPlaceHolder1_gvAccountingList_lblActType_3"
+									style="color: Blue;">收入</span></td>
+								<td>123</td>
+								<td>QWE</td>
+								<td><a
+									href="/SystemAdmin/AccountingRecord/AccountingDetail.aspx?ID=8">修改</a>
+								</td>
+							</tr>
+							<tr style="background-color: #EFF3FB;">
+								<td>2021-08-12</td>
+								<td><span
+									id="ContentPlaceHolder1_gvAccountingList_lblActType_4"
+									style="color: Blue;">收入</span></td>
+								<td>123</td>
+								<td>QWE</td>
+								<td><a
+									href="/SystemAdmin/AccountingRecord/AccountingDetail.aspx?ID=9">修改</a>
+								</td>
+							</tr>
+						</table>
+
+			</div>
+</body>

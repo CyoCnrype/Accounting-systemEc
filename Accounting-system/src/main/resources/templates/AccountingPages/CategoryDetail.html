@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<title>Thymeleaf layout</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<table>
+			<tr>
+				<td colspan="2">
+					<h3>流水帳分類管理</h3> 流水帳紀錄 <svg xmlns="http://www.w3.org/2000/svg"
+						width="16" height="16" fill="currentColor"
+						class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+     <path
+							d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+   </svg> 流水帳分類管理 <br /> <br />
+				</td>
+			</tr>
+			</br>
+			<tr>
+				<td><input name="ctl00$ContentPlaceHolder1$txtAmount"
+					type="number" value="35456" id="ContentPlaceHolder1_txtAmount" />
+					<br /> 標題 <input name="ctl00$ContentPlaceHolder1$txtCaption"
+					type="text" value="標題" id="ContentPlaceHolder1_txtCaption" /> <br />
+					備註 <textarea name="ctl00$ContentPlaceHolder1$txtDesc" rows="2"
+						cols="20" id="ContentPlaceHolder1_txtDesc">
+備註</textarea> <br /></td>
+			</tr>
+		</table>
+		<input type="submit" name="Save" value="Save" id="Save" />
+
+
+	</div>
+</body>
