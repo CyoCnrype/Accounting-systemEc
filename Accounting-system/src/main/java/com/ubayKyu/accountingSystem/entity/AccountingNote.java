@@ -13,32 +13,35 @@ import javax.persistence.Table;
 @Table(name = "AccountingNote")
 public class AccountingNote {
 
+	//	流水帳辨識碼
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AccID", nullable = false, columnDefinition = "int")
 	private Integer AccID;
-
+	//	使用者辨識碼
 	@Column(name = "UserID", nullable = false, columnDefinition = "uniqueidentifier")
 	private String UserID;
-
+	//	標題
 	@Column(name = "Caption", nullable = true, columnDefinition = "nvarchar(100)")
 	private String Caption;
-
+	//	金額
 	@Column(name = "Amount", nullable = false, columnDefinition = "int")
 	private Integer Amount;
-
-	//0=支出、1=收入
+	//	收支種類
+	// 0=支出、1=收入
 	@Column(name = "ActType", nullable = false, columnDefinition = "int")
 	private Integer ActType;
-
+	//	建立時間
 	@Column(name = "CreateDate", nullable = false, columnDefinition = "datetime default getdate()")
 	private LocalDateTime CreateDate;
-
+	//	備註
 	@Column(name = "Body", nullable = true, columnDefinition = "nvarchar(500)")
 	private String Body;
-
+	//	分類辨識碼
 	@Column(name = "CategoryID", nullable = true, columnDefinition = "uniqueidentifier")
 	private String CategoryID;
+
+	// ----getter & setter ----
 
 	public Integer getAccID() {
 		return AccID;

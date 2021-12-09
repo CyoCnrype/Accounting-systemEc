@@ -25,7 +25,7 @@ public class UserProfilePagesController {
 	@GetMapping("/Login")
 	public String Login(Model model) {
 
-		// 判斷session、如果為空則令其登入、否則直接進一頁
+		// 判斷session、如果為空則令其登入、否則直接進下一頁
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
 			return "/UserProfilePages/Login";

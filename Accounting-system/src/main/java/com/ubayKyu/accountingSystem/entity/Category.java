@@ -10,66 +10,70 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Category")
 public class Category {
- 
- @Id @Column(name="CategoryID", nullable=false, columnDefinition="uniqueidentifier")
-    private String CategoryID;
-    
- @Column(name="UserID", nullable=false, columnDefinition="uniqueidentifier")
-    private String UserID;
- 
-    @Column(name="Caption", nullable=false, columnDefinition="nvarchar(100)")
-    private String Caption;
-    
-    @Column(name="Body", nullable=true, columnDefinition="nvarchar(500)")
-    private String Body;
 
- @Column(name="CreateDate", nullable=false, columnDefinition="datetime default getdate()")
- private LocalDateTime CreateDate;
+	//	分類辨識碼
+	@Id
+	@Column(name = "CategoryID", nullable = false, columnDefinition = "uniqueidentifier")
+	private String CategoryID;
+	//	使用者辨識碼
+	@Column(name = "UserID", nullable = false, columnDefinition = "uniqueidentifier")
+	private String UserID;
+	//	標題(分類)
+	@Column(name = "Caption", nullable = false, columnDefinition = "nvarchar(100)")
+	private String Caption;
+	//	備註
+	@Column(name = "Body", nullable = true, columnDefinition = "nvarchar(500)")
+	private String Body;
+	//	建立時間
+	@Column(name = "CreateDate", nullable = false, columnDefinition = "datetime default getdate()")
+	private LocalDateTime CreateDate;
 
- public String getCategoryID() {
-  return CategoryID;
- }
+	// ----getter & setter ----
 
- public void setCategoryID(String categoryID) {
-  CategoryID = categoryID;
- }
+	public String getCategoryID() {
+		return CategoryID;
+	}
 
- public String getUserID() {
-  return UserID;
- }
+	public void setCategoryID(String categoryID) {
+		CategoryID = categoryID;
+	}
 
- public void setUserID(String userID) {
-  UserID = userID;
- }
+	public String getUserID() {
+		return UserID;
+	}
 
- public String getCaption() {
-  return Caption;
- }
+	public void setUserID(String userID) {
+		UserID = userID;
+	}
 
- public void setCaption(String caption) {
-  Caption = caption;
- }
+	public String getCaption() {
+		return Caption;
+	}
 
- public String getBody() {
-  return Body;
- }
+	public void setCaption(String caption) {
+		Caption = caption;
+	}
 
- public void setBody(String body) {
-  Body = body;
- }
+	public String getBody() {
+		return Body;
+	}
 
- public LocalDateTime getCreateDate() {
-  return CreateDate;
- }
+	public void setBody(String body) {
+		Body = body;
+	}
 
- public void setCreateDate(LocalDateTime createDate) {
-  CreateDate = createDate;
- }
+	public LocalDateTime getCreateDate() {
+		return CreateDate;
+	}
 
- @Override
- public String toString() {
-  return "Category [CategoryID=" + CategoryID + ", UserID=" + UserID + ", Caption=" + Caption + ", Body=" + Body
-    + ", CreateDate=" + CreateDate + "]";
- }
- 
+	public void setCreateDate(LocalDateTime createDate) {
+		CreateDate = createDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [CategoryID=" + CategoryID + ", UserID=" + UserID + ", Caption=" + Caption + ", Body=" + Body
+				+ ", CreateDate=" + CreateDate + "]";
+	}
+
 }

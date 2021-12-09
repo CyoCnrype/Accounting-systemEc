@@ -34,14 +34,14 @@ position: fixed;
 	else
 		setTimeout("forward()", 100); //for Chrome、Firefox
 </script>
-<!--  IsPostback -->
+<!--  IsPostback_end -->
 <!--  message洞 -->
 <script th:inline="javascript">
 	var message = /*[[${message}]]*/"";
 	if (message != null)
 		alert(message);
 </script>
-<!--  message洞 -->
+<!--  message洞_end -->
 <!--  使用者圖片 -->
 <script th:inline="javascript">
 	$(function() {
@@ -52,12 +52,9 @@ position: fixed;
 			document.getElementById('userLevel').src = "https://upload.cc/i1/2021/12/08/9Nz7Jm.png";
 	});
 </script>
-<!--  使用者圖片 -->
+<!--  使用者圖片_end -->
 
 </head>
-
-
-
 <body>
 	<div>
 		<table>

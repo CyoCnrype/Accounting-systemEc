@@ -24,7 +24,7 @@ public class AccountingPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入----//
+		// -------判斷登入_end----//
 		return "/AccountingPages/AccountingDetail";
 	}
 
@@ -35,7 +35,7 @@ public class AccountingPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入----//
+		// -------判斷登入_end----//
 		return "/AccountingPages/AccountingList";
 	}
 
@@ -46,7 +46,7 @@ public class AccountingPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入----//
+		// -------判斷登入_end----//
 		return "/AccountingPages/CategoryDetail";
 	}
 
@@ -57,7 +57,7 @@ public class AccountingPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入----//
+		// -------判斷登入_end----//
 		return "/AccountingPages/CategoryList";
 	}
 

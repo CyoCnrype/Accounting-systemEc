@@ -23,7 +23,7 @@ public class BackEndPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入----//
+		// -------判斷登入_end----//
 		model.addAttribute("account", "Account_1");
 		model.addAttribute("creatTime", "2021/8/2 下午 09:24:16");
 		model.addAttribute("updateTime", "2021/8/2 下午 09:24:16");
@@ -37,7 +37,7 @@ public class BackEndPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入----//
+		// -------判斷登入_end----//
 		return "/BackEndPages/UserList";
 	}
 

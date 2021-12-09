@@ -48,12 +48,8 @@ public class DefaultController {
 		model.addAttribute("firstAccRecordTime", latestAccDate);
 		model.addAttribute("lastAccRecordTime", oldestAccDate);
 		model.addAttribute("recordNumber", accSize);
-		model.addAttribute("menberNumber", userSize);
+		model.addAttribute("menberNumber", userSize);		
 		
-		//驗證彈出視窗
-		//return "<Script language='JavaScript'>alert('回應填寫成功!');</Script>";
-
-		//驗證彈出視窗
 
 		return "Default.html";
 	}
@@ -72,13 +68,6 @@ public class DefaultController {
         return "<Script language='JavaScript'>alert('回應填寫成功!');</Script>";
         //return "<Script language='JavaScript'>alert('回應填寫成功!');location.href='/Default/Default'; </Script>";
     }
-	
-	//@GetMapping("/testJS")
-	@RequestMapping("/testJS")
-	public String  testJS(Model model ,  RedirectAttributes redirAttrs) {
-		redirAttrs.addFlashAttribute("message", "彈跳甲魚湯");
-		String url = "/Default/Default"; // 重新導向到指定的url
-		return "redirect:" + url; // 重新導向到指定的url
-	}
+
 
 }
