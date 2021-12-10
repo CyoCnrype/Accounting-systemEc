@@ -38,6 +38,14 @@ public class UserInfo {
 	public String getUserID() {
 		return UserID;
 	}
+	
+	public String getID() {
+		return UserID;
+	}
+	
+	public String getId() {
+		return UserID;
+	}
 
 	public void setUserID(String userID) {
 		UserID = userID;

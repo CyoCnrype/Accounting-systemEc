@@ -4,38 +4,49 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout.html}">
 <head>
-<title>Thymeleaf layout</title>
+<title>CategoryList</title>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<script>
+	$(function() {
+		$("#tblCategory").tablepage($("#table_page"), 1); //記得改為10
+	});
+</script>
 
 </head>
 <body>
-
 	<div layout:fragment="content">
-		<table>
-			<tr>
-				<td colspan="2">
-					<h3>流水帳分類管理</h3> 流水帳紀錄 <svg xmlns="http://www.w3.org/2000/svg"
-						width="16" height="16" fill="currentColor"
-						class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-     <path
-							d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-   </svg> 流水帳分類管理 <br /> <br />
-				</td>
-			</tr>
-			<tr>
-				<td><input type="submit"
-					name="ctl00$ContentPlaceHolder1$btnCreate" value="Add"
-					id="ContentPlaceHolder1_btnCreate" /> <input type="submit"
-					name="ctl00$ContentPlaceHolder1$btnDelete" value="Delete"
-					id="ContentPlaceHolder1_btnDelete" /> <br />
-
-
-					<div>
-						<table cellspacing="0" cellpadding="4"
-							id="ContentPlaceHolder1_gvAccountingList"
+		<h2>流水帳分類管理</h2>
+		<form method="post" action="#"
+			th:action="@{|CategoryList?id=${session.LoginState.getId()}|}"
+			id="form1">
+			<table>
+				<tr>
+					<td>流水帳分類紀錄 <svg xmlns="http://www.w3.org/2000/svg" width="16"
+							height="16" fill="currentColor" class="bi bi-caret-right-fill"
+							viewBox="0 0 16 16">
+  <path
+								d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+  </svg> 流水帳分類管理
+					</td>
+				</tr>
+				<tr>
+					<td>
+					
+					<input type="button" class="btn btn-outline-dark"
+						name="btnAdd" value="Add" id="btnAdd"
+						th:onclick="'window.location.href = \'' + @{/AccountingPages/CategoryDetail(id=${session.LoginState.getUserID()})} + '\''" />						
+						
+						&nbsp;&nbsp; 						
+						<input type="submit" class="btn btn-outline-dark"
+						name="btnCategoryDel" value="Del" id="btnCategoryDel" />&emsp;
+						&nbsp;&ensp;</td>
+				</tr>
+				<tr>
+					<td>
+						<table cellspacing="0" cellpadding="4" id="tblCategory"
 							style="color: #333333; border-collapse: collapse;">
 							<tr
 								style="color: White; background-color: #507CD1; font-weight: bold;">
@@ -43,28 +54,25 @@
 								<th scope="col">建立日期</th>
 								<th scope="col">分類</th>
 								<th scope="col">流水帳數</th>
-								<th scope="col">編輯</th>
+								<th scope="col">Act</th>
 							</tr>
-							<tr style="background-color: #EFF3FB;">
-								<td><input id="CheckBox1_0" type="checkbox"
-									name="CheckBox1" /></td>
-								<td>2021-08-19</td>
-								<td>我的分類1</td>
-								<td>4</td>
+							<tr style="background-color: #EFF3FB;"
+								th:each="CategoryInterFace,status : ${CategoryModelList}">
+								<td><input type="checkbox" id="chbCategoryDel"
+									name="chbCategoryDel"
+									th:value=${CategoryInterFace.getcategoryid()}></td>
+								<td th:text="${CategoryInterFace.getcreate_date()}">CreateDate</td>
+								<td th:text="${CategoryInterFace.getcaption()}">Caption</td>
+								<td th:text="${CategoryInterFace.getcount()}">Count</td>
 								<td><a
-									href="/SystemAdmin/AccountingRecord/AccountingDetail.aspx?ID=5">修改</a>
+									th:href="@{/AccountingPages/CategoryDetail(id=${session.LoginState.getId()},CategoryID=${CategoryInterFace.getcategoryid()})}">Edit</a>
 								</td>
 							</tr>
-							<tr style="background-color: White;">
-								<td><input id="CheckBox1_1" type="checkbox"
-									name="CheckBox1" /></td>
-								<td>2021-08-19</td>
-								<td>我的分類2</td>
-								<td>1</td>
-								<td><a
-									href="/SystemAdmin/AccountingRecord/AccountingDetail.aspx?ID=6">修改</a>
-								</td>
-							</tr>
-						</table>
-					</div>
+						</table> <span id="table_page"></span>
+					</td>
+				</tr>
+
+			</table>
+		</form>
+	</div>
 </body>

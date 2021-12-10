@@ -8,9 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ubayKyu.accountingSystem.dto.ListedCategory;
+import com.ubayKyu.accountingSystem.dto.CategoryInterFace;
 import com.ubayKyu.accountingSystem.repository.CategoryRepository;
-import com.ubayKyu.accountingSystem.repository.testRepo;
 
 @Controller
 @RequestMapping("/Default")
@@ -18,14 +17,13 @@ public class tester {
 	
 	@Autowired
 	CategoryRepository CategoryRepository; 
-	@Autowired
-	testRepo testRepo; 
+
 
 	@GetMapping("/test")
 	public String test(Model model) {		
 		String userid = "94037537-7245-4530-BB73-01FE015973E7";
-		List<ListedCategory> listedCategory = CategoryRepository.GetListedCategory(userid);
-		String result =  listedCategory.get(0).getCaption();
+		List<CategoryInterFace> listedCategory = CategoryRepository.FindCategoryModelListByUserid(userid);
+		String result =  listedCategory.get(0).getcaption();
 		model.addAttribute("testResult",result );			
 	
 		

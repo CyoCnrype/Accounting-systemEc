@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ubayKyu.accountingSystem.service.LoginService;
 
+@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 @Controller
 @RequestMapping("/BackEndPages")
 public class BackEndPagesController {

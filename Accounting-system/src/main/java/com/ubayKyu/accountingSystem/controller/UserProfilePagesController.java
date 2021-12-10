@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ubayKyu.accountingSystem.entity.UserInfo;
 import com.ubayKyu.accountingSystem.repository.UserInfoRepository;
 import com.ubayKyu.accountingSystem.service.LoginService;
 
+@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 @Controller
 @RequestMapping("/UserProfilePages")
 public class UserProfilePagesController {
@@ -68,10 +70,9 @@ public class UserProfilePagesController {
 			session.setAttribute("UserLevel", userLevel);
 		}
 
-		if (result == true) {// 如果登入成功
-			
+		if (result == true) {// 如果登入成功			
 			redirAttrs.addFlashAttribute("message", "登入成功");			
-			String url = "/AccountingPages/AccountingList"; // 重新導向到指定的url
+			String url = "/UserProfilePages/UserProfile"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		} else {// 如果失敗
 			redirAttrs.addFlashAttribute("message", "登入失敗");	
@@ -80,20 +81,5 @@ public class UserProfilePagesController {
 		}
 
 	}
-
-//	public HttpSession writeSession(HttpSession session, String account) {
-//		session.setAttribute("LoginState", account); // 將memberAccount object存入session命名為uid
-//		return session;
-//	}
 	
-
-	// 實驗URL導向的方法(未實際作用)
-	@GetMapping("/redirect")
-	public RedirectView redirect() {
-
-		String url = "https://www.youtube.com/";
-
-		return new RedirectView(url); // 重新導向到指定的url
-	}
-
 }
