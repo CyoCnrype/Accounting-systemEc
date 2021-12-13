@@ -46,5 +46,7 @@ public interface AccountingNoteRepository extends JpaRepository<AccountingNote, 
 			+ "  WHERE accounting_note.[userid] =:userid"
 			, nativeQuery = true)
 	List<AccountingNoteInterFace> GetAccNotebyUserId(@Param("userid") String userid);
+	
+	
 
 }

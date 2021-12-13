@@ -28,16 +28,16 @@
 			</tr>
 			</br>
 			<tr>
-				<td><input name="ctl00$ContentPlaceHolder1$txtAmount"
-					type="number" value="35456" id="ContentPlaceHolder1_txtAmount" />
-					<br /> 標題 <input name="ctl00$ContentPlaceHolder1$txtCaption"
-					type="text" value="標題" id="ContentPlaceHolder1_txtCaption" /> <br />
-					備註 <textarea name="ctl00$ContentPlaceHolder1$txtDesc" rows="2"
-						cols="20" id="ContentPlaceHolder1_txtDesc">
-備註</textarea> <br /></td>
+				<td>
+				標題 
+					<input name="txtCaption"
+					type="text" id="txtCaption" th:value="${txtCaption}" /> <br />
+					備註 <textarea name="txtBody" rows="2"
+						cols="20" id="txtBody" th:text="${txtBody}" ></textarea> <br /></td>
 			</tr>
 		</table>
-		<input type="submit" name="Save" value="Save" id="Save" />
+		<input type="submit" name="Save" value="Save" id="Save" 
+		>
 
 
 	</div>

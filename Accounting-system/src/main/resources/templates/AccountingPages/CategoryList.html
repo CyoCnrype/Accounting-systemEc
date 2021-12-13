@@ -37,11 +37,11 @@
 					
 					<input type="button" class="btn btn-outline-dark"
 						name="btnAdd" value="Add" id="btnAdd"
-						th:onclick="'window.location.href = \'' + @{/AccountingPages/CategoryDetail(id=${session.LoginState.getUserID()})} + '\''" />						
+						th:onclick="'window.location.href = \'' + @{/AccountingPages/CategoryDetail(id=${session.LoginState.getUserID()},CategoryID=${''})} + '\''" />						
 						
 						&nbsp;&nbsp; 						
 						<input type="submit" class="btn btn-outline-dark"
-						name="btnCategoryDel" value="Del" id="btnCategoryDel" />&emsp;
+						name="btnDel" value="Del" id="btnDel" onclick="return confirm('您確定嗎?(無法刪除仍有流水帳之分類)')" />&emsp;
 						&nbsp;&ensp;</td>
 				</tr>
 				<tr>
