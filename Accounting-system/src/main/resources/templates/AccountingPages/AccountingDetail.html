@@ -10,6 +10,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
+<script th:inline="javascript">
+	$(function() {
+		var category = /*[[${AccCategory}]]*/"";
+		var acttype = /*[[${AccActType}]]*/"";
+		if (category != null) {
+			$("#PrivateType").val(category);
+		}
+		if (acttype != null) {
+			$("#ActType").val(acttype);
+		}
+	});
+</script>
+
 </head>
 <body>
 
@@ -17,8 +30,7 @@
 		<table>
 			<tr>
 				<td colspan="2">
-					<h3>流水帳管理</h3>
-					 流水帳紀錄 <svg xmlns="http://www.w3.org/2000/svg"
+					<h3>流水帳管理</h3> 流水帳紀錄 <svg xmlns="http://www.w3.org/2000/svg"
 						width="16" height="16" fill="currentColor"
 						class="bi bi-caret-right-fill" viewBox="0 0 16 16">
      <path
@@ -29,22 +41,25 @@
 			</tr>
 			</br>
 			<tr>
-				<td>收 / 支 <select name="ctl00$ContentPlaceHolder1$ddlActType"
-					id="ContentPlaceHolder1_ddlActType">
+				<td>收/支 <select name="ActType" id="ActType">
+						<option value="1">收入</option>
 						<option value="0">支出</option>
-						<option selected="selected" value="1">收入</option>
-				</select> <br /> 分類 <select name="ctl00$ContentPlaceHolder1$ddlMyType"
-					id="ContentPlaceHolder1_ddlMyType">
-						<option value="0">我的分類1</option>
-						<option selected="selected" value="1">我的分類2</option>
-				</select> <br /> 金額 <input name="ctl00$ContentPlaceHolder1$txtAmount"
-					type="number" value="35456" id="ContentPlaceHolder1_txtAmount" />
-					<br /> 標題 <input name="ctl00$ContentPlaceHolder1$txtCaption"
-					type="text" value="453645645655"
-					id="ContentPlaceHolder1_txtCaption" /> <br /> 備註 <textarea
-						name="ctl00$ContentPlaceHolder1$txtDesc" rows="2" cols="20"
-						id="ContentPlaceHolder1_txtDesc">
-45645645</textarea> <br />
+				</select><br /> 分類 <select name="PrivateType" id="PrivateType">
+						<option value="">未分類</option>
+						<option th:each="Category:${CategoryList}"
+							th:value="${Category.getCategoryID()}">[[${Category.getCaption()}]]</option>
+						<!--                         <option value="Private1">我的分類1</option> -->
+						<!--                         <option value="Private2">我的分類2</option> -->
+				</select><br /> 金額 <input type="number" name="txtAmount" id="txtAmount"
+					th:value="${AccAmount}" min="1" max="10000000"
+					placeholder="請輸入金額(一至一千萬)" required style="width: 400px"
+					placeholder="請輸入金額(最大不能超過1000萬)" /><br /> <br /> 標題 <input
+					type="text" name="txtCaption" id="txtCaption"
+					th:value="${AccCaption}" style="width: 400px" placeholder="請輸入標題" /><br />
+					<br /> 備註 <textarea id="txtBody" name="txtBody"
+						th:text="${AccBody}" rows="4" cols="50" placeholder="請輸入備註"></textarea><br />
+					<br /> <input type="hidden" name="hiddenAccDate"
+					id="hiddenAccDate" th:value="${AccDatetime}" />
 
 				</td>
 			</tr>

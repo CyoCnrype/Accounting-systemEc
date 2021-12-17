@@ -23,7 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ubayKyu.accountingSystem.dto.AccountingNoteInterFace;
 import com.ubayKyu.accountingSystem.dto.CategoryInterFace;
+import com.ubayKyu.accountingSystem.entity.AccountingNote;
 import com.ubayKyu.accountingSystem.entity.Category;
+import com.ubayKyu.accountingSystem.entity.UserInfo;
 import com.ubayKyu.accountingSystem.repository.AccountingNoteRepository;
 import com.ubayKyu.accountingSystem.repository.CategoryRepository;
 import com.ubayKyu.accountingSystem.service.AccountingNoteService;
@@ -47,14 +49,82 @@ public class AccountingPagesController {
 	AccountingNoteRepository AccountingNoteRepository;
 
 	@GetMapping("/AccountingDetail")
-	public String AccountingDetail(Model model) {
+	public String AccountingDetail(Model model, HttpServletRequest request) {
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
 		// -------判斷登入_end----//
+		String userId = request.getParameter("id");
+		String strAccid = request.getParameter("accid");
+		Integer accid = Integer.parseInt(strAccid);
+		//====施工====//
+		if(strAccid == null || strAccid=="")
+        {
+//            Optional<AccountingNote> accountingNote = AccountingNoteService.getAccountingNoteByID(accid);
+//            model.addAttribute("AccAmount", accountingNote.get().getAmount());
+//            model.addAttribute("AccCaption", accountingNote.get().getCaption());
+//            model.addAttribute("AccBody", accountingNote.get().getBody());
+//            model.addAttribute("AccCategory", accountingNote.get().getCategoryID());
+//            model.addAttribute("AccDatetime", accountingNote.get().getCreateDate());
+//            model.addAttribute("AccActType", accountingNote.get().getActType());
+        }
+        UserInfo user =  (UserInfo) session.getAttribute("LoginState");
+        //List<Category> categoryList = CategoryService.getCategoryByUserID(user.getId());
+        //model.addAttribute("CategoryList", categoryList);
+        
+		//====施工====//		
 		return "/AccountingPages/AccountingDetail";
+	}
+
+	@PostMapping("/AccountingDetail")
+	public String AccountingDetail(Model model, HttpServletRequest request,
+			@RequestParam(value = "accid", required = false) String accID,
+			@RequestParam(value = "txtCaption", required = false) String txtCaption,
+			@RequestParam(value = "txtBody", required = false) String txtBody,
+			@RequestParam(value = "txtAmount", required = false) String txtAmount,
+			@RequestParam(value = "PrivateType", required = false) String categoryid,
+			@RequestParam(value = "ActType", required = false) Integer actType,
+			@RequestParam(value = "hiddenAccDate", required = false) String accDatetime,
+			RedirectAttributes redirAttrs) {
+		// -------判斷登入----//
+		if (!LoginService.IsLogin(session)) {
+			String url = "/Default/Logout"; // 重新導向到指定的url
+			return "redirect:" + url; // 重新導向到指定的url
+		}
+		// -------判斷登入_end----//		
+
+		// ===施工====//
+		String userId = request.getParameter("id");
+		String strAccid = request.getParameter("accid");
+        Integer accid = Integer.parseInt(strAccid);
+//        AccountingNote accountingNote = new AccountingNote();
+//        if(!categoryid.isEmpty())
+//            accountingNote.setCategoryID(categoryid);
+//        accountingNote.setActType(actType);
+//        accountingNote.setAmount(Integer.parseInt(txtAmount));
+//        accountingNote.setCaption(txtCaption);
+//        accountingNote.setBody(txtBody);
+//        accountingNote.setUserID(userId);
+//        String message = "編輯成功";
+//        if(strAccid == null || strAccid=="")
+//        {        	        	
+//            accountingNote.setCreateDate(LocalDateTime.now());
+//            strAccid ="";
+//            message = "新增成功";
+//        }
+//        else {
+//            accountingNote.setAccID(accid);
+//            accountingNote.setCreateDate(LocalDateTime.parse(accDatetime));
+//        }
+//        accID = (AccountingNoteService.saveAccountingNote(accountingNote)).toString();
+//        redirAttrs.addFlashAttribute("message", message);
+		String url = "/AccountingPages/AccountingDetail?id=" + userId + "&accid=" + strAccid;
+		return "redirect:" + url;
+
+		// ===施工====//
+
 	}
 
 	// AccountingList顯示
@@ -76,7 +146,7 @@ public class AccountingPagesController {
 				- AccountingNoteService.getAccountingNoteAmountSum(userid, 0));
 		model.addAttribute("subtotalTotal", subtotalTotal);
 		// 計算小計(本月)
-		int subtotalThisMonth =(AccountingNoteService.getAccountingNoteAmountOfMonth(userid, 1)
+		int subtotalThisMonth = (AccountingNoteService.getAccountingNoteAmountOfMonth(userid, 1)
 				- AccountingNoteService.getAccountingNoteAmountOfMonth(userid, 0));
 		model.addAttribute("subtotalThisMonth", subtotalThisMonth);
 
@@ -202,7 +272,7 @@ public class AccountingPagesController {
 					redirAttrs.addFlashAttribute("message", "刪除失敗：分類底下有剩餘帳數");
 				}
 			}
-		}				
+		}
 
 		String url = "/AccountingPages/CategoryList?id=" + userid; // 返回元分頁
 		return "redirect:" + url;
