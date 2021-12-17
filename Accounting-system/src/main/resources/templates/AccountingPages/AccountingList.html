@@ -10,9 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <script>
-$(function () { 
-    $("#tblAccounting").tablepage($("#table_page"), 1);  //記得改為10
-});
+	$(function() {
+		$("#tbAccountingNote").tablepage($("#table_page"), 10); //記得改為10
+	});
 </script>
 </head>
 <body>
@@ -32,44 +32,52 @@ $(function () {
 					</td>
 				</tr>
 				<tr>
-					<td><a
-						th:href="@{/AccountingPages/AccountingDetail(id=${session.LoginState.getId()})}">
-							<input type="button" class="btn btn-outline-dark"
-							name="btnCategoryAdd" value="Add" id="btnCategoryAdd" />
-					</a> &nbsp;&nbsp; <input type="submit" class="btn btn-outline-dark"
-						name="btnCategoryDel" value="Del" id="btnCategoryDel" />&emsp;
-						&nbsp;&ensp;</td>
+					<td><input type="button" class="btn btn-outline-dark"
+						name="btnAdd" value="Add" id="btnAdd"
+						th:onclick="'window.location.href = \'' + @{/AccountingPages/AccountingDetail(id=${session.LoginState.getUserID()},accid=${''})} + '\''" />
+						&nbsp;&nbsp; <input type="submit" class="btn btn-outline-dark"
+						name="btnDel" value="Del" id="btnDel"
+						onclick="return confirm('您確定嗎?')" />&emsp; &nbsp;&ensp;
+					<!--顯示小計 -->
+					</br><a>總金額：[[${subtotalTotal}]]</a>&nbsp;&nbsp;
+					</br><a>本月小計：[[${subtotalThisMonth}]]</a></td>&nbsp;&nbsp;
+					<!--顯示小計 -->
 				</tr>
 				<tr>
 					<td>
-						<table cellspacing="0" cellpadding="4"
-							id="tblAccounting"
+						<table class="myTable" border="1" cellpadding="6"
+							id="tbAccountingNote"
 							style="color: #333333; border-collapse: collapse;">
 							<tr
 								style="color: White; background-color: #507CD1; font-weight: bold;">
 								<th scope="col"></th>
 								<th scope="col">建立日期</th>
 								<th scope="col">分類</th>
-								<th scope="col">收/支</th>
+								<th scope="col">收 / 支</th>
 								<th scope="col">金額</th>
 								<th scope="col">標題</th>
 								<th scope="col">Act</th>
 							</tr>
-							<tr style="background-color: #EFF3FB;"
-								th:each="AccountingNoteInterFace,status : ${AccountingNoteModelList}">
-								<td><input type="checkbox" id="chbCategoryDel"
-									name="chbCategoryDel"
-									th:value=${AccountingNoteInterFace.getaccid()}>建立日期</td>
-								<td th:text="${AccountingNoteInterFace.getcreate_date()}">建立日期</td>
-								<td th:text="${AccountingNoteInterFace.getcategoryCaption()}">分類</td>
-								<td th:text="${AccountingNoteInterFace.getact_type()}">收/支</td>
-								<td th:text="${AccountingNoteInterFace.getamount()}">金額</td>
-								<td th:text="${AccountingNoteInterFace.getcaption()}">標題</td>
+							<tr th:each="AccountingNoteInterFace:${accountingNoteListTable}">
+								<td style="border-right: 1px solid black;"><input
+									type="checkbox" id="ckbDelete" name="ckbDelete"
+									th:value=${AccountingNoteInterFace.getaccid()}></td>
+								<td style="border-right: 1px solid black;"
+									th:text="${AccountingNoteInterFace.getcreate_date()}">CreateDate</td>
+								<td style="border-right: 1px solid black;"
+									th:text="${AccountingNoteInterFace.getcategoryCaption()}">CategoryCaption</td>
+								<td style="border-right: 1px solid black;"
+									th:text="${AccountingNoteInterFace.getact_type()} == 1 ? '收入' : '支出'">ActType</td>
+								<td style="border-right: 1px solid black;"
+									th:styleappend="${AccountingNoteInterFace.getact_type()} == 1 ? 'color:Blue;' : 'color:Red;'"
+									th:text="${AccountingNoteInterFace.getact_type()} == 1 ?
+									 ${AccountingNoteInterFace.getamount()} : '('+${AccountingNoteInterFace.getamount()}+')'">Amount</td>
+								<td style="border-right: 1px solid black;"
+									th:text="${AccountingNoteInterFace.getcaption()}">Caption</td>
 								<td><a
-									th:href="@{/AccountingPages/AccountingDetail(id=${session.LoginState.getId()},Accid=${AccountingNoteInterFace.getaccid()})}">Edit</a>
-								</td>
+									th:href="@{/AccountingPages/AccountingDetail(accID=${AccountingNoteInterFace.getaccid()})}">Edit</a></td>
 							</tr>
-						</table><span id="table_page"></span>
+						</table> <span id="table_page"></span>
 					</td>
 				</tr>
 

@@ -49,7 +49,6 @@ public class DefaultController {
 		model.addAttribute("lastAccRecordTime", oldestAccDate);
 		model.addAttribute("recordNumber", accSize);
 		model.addAttribute("menberNumber", userSize);		
-		
 
 		return "Default.html";
 	}

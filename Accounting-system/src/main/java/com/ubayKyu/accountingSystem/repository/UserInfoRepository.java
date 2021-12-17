@@ -3,12 +3,13 @@ package com.ubayKyu.accountingSystem.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import com.ubayKyu.accountingSystem.entity.UserInfo;
 
-
-public interface UserInfoRepository extends JpaRepository<UserInfo,Integer>{
+@Repository
+public interface UserInfoRepository extends JpaRepository<UserInfo,String>{
 	
 	//UserInfo findByAccountAndPwd(String name, String password);
 	List<UserInfo> findAll();

@@ -13,32 +13,32 @@
 </head>
 <body>
 
-	<div layout:fragment="content">		
-
-		<table>
-			<tr>
-				<td colspan="2">
-					<h3>流水帳分類管理</h3> 流水帳紀錄 <svg xmlns="http://www.w3.org/2000/svg"
-						width="16" height="16" fill="currentColor"
-						class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+	<div layout:fragment="content">
+		<form method="post" action=""		
+			id="form1">
+			<table>
+				<tr>
+					<td colspan="2">
+						<h3>流水帳分類管理</h3> 流水帳紀錄 <svg xmlns="http://www.w3.org/2000/svg"
+							width="16" height="16" fill="currentColor"
+							class="bi bi-caret-right-fill" viewBox="0 0 16 16">
      <path
-							d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+								d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
    </svg> 流水帳分類管理 <br /> <br />
-				</td>
-			</tr>
-			</br>
-			<tr>
-				<td>
-				標題 
-					<input name="txtCaption"
-					type="text" id="txtCaption" th:value="${txtCaption}" /> <br />
-					備註 <textarea name="txtBody" rows="2"
-						cols="20" id="txtBody" th:text="${txtBody}" ></textarea> <br /></td>
-			</tr>
-		</table>
-		<input type="submit" name="Save" value="Save" id="Save" 
-		>
+					</td>
+				</tr>
+				</br>
+				<tr>
+					<td>標題 <input name="txtCaption" type="text" id="txtCaption"
+						th:value="${txtCaption}" required placeholder="請輸入標題" MaxLength="20"/> <br /> 
+						備註 <textarea name="txtBody"
+							rows="2" cols="20" id="txtBody" th:text="${txtBody}" placeholder="請輸入內容"></textarea>
+						<br /></td>
+				</tr>
+			</table>
+			<input type="submit" name="Save" value="Save" id="Save">
 
-
+			
+	</form>
 	</div>
 </body>

@@ -3,9 +3,11 @@ package com.ubayKyu.accountingSystem.service;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ubayKyu.accountingSystem.repository.UserInfoRepository;
 
+@Service
 public class LoginService {
 
 	@Autowired

@@ -3,6 +3,9 @@ package com.ubayKyu.accountingSystem.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FormatService {
 	
 	public static String FormatDateTime (LocalDateTime dateTime) {
