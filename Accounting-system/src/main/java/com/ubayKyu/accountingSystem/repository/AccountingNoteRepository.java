@@ -85,4 +85,9 @@ public interface AccountingNoteRepository extends JpaRepository<AccountingNote, 
     		,nativeQuery = true)
 	Integer FindAccountingNoteAmountOfMonth(@Param("userid") String userid, @Param("actType") int actType);
 
+    @Query(value = "    SELECT *"
+            + "    FROM accounting_note"
+            + "    WHERE userid=:userid "
+            , nativeQuery = true)
+    List<AccountingNote> FindAccountingNoteByUserID(@Param("userid") String userid);
 }

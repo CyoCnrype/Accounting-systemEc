@@ -27,6 +27,8 @@
 <body>
 
 	<div layout:fragment="content">
+	<form method="post" action=""		
+			id="form1">
 		<table>
 			<tr>
 				<td colspan="2">
@@ -48,13 +50,11 @@
 						<option value="">未分類</option>
 						<option th:each="Category:${CategoryList}"
 							th:value="${Category.getCategoryID()}">[[${Category.getCaption()}]]</option>
-						<!--                         <option value="Private1">我的分類1</option> -->
-						<!--                         <option value="Private2">我的分類2</option> -->
+
 				</select><br /> 金額 <input type="number" name="txtAmount" id="txtAmount"
-					th:value="${AccAmount}" min="1" max="10000000"
-					placeholder="請輸入金額(一至一千萬)" required style="width: 400px"
-					placeholder="請輸入金額(最大不能超過1000萬)" /><br /> <br /> 標題 <input
-					type="text" name="txtCaption" id="txtCaption"
+					th:value="${AccAmount}" min="1" max="10000000" required
+					style="width: 400px" placeholder="請輸入金額(最大值1,000萬)" /><br /> <br />
+					標題 <input type="text" name="txtCaption" id="txtCaption"
 					th:value="${AccCaption}" style="width: 400px" placeholder="請輸入標題" /><br />
 					<br /> 備註 <textarea id="txtBody" name="txtBody"
 						th:text="${AccBody}" rows="4" cols="50" placeholder="請輸入備註"></textarea><br />
@@ -64,7 +64,6 @@
 				</td>
 			</tr>
 		</table>
-
 		<input type="submit" name="Save" value="Save" id="Save" />
-	</div>
+	</form></div>
 </body>

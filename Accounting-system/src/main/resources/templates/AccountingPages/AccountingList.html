@@ -75,7 +75,7 @@
 								<td style="border-right: 1px solid black;"
 									th:text="${AccountingNoteInterFace.getcaption()}">Caption</td>
 								<td><a
-									th:href="@{/AccountingPages/AccountingDetail(accID=${AccountingNoteInterFace.getaccid()})}">Edit</a></td>
+									th:href="@{/AccountingPages/AccountingDetail(id=${session.LoginState.getUserID()},accid=${AccountingNoteInterFace.getaccid()})}">Edit</a></td>
 							</tr>
 						</table> <span id="table_page"></span>
 					</td>

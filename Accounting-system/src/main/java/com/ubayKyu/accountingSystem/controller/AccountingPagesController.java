@@ -30,6 +30,7 @@ import com.ubayKyu.accountingSystem.repository.AccountingNoteRepository;
 import com.ubayKyu.accountingSystem.repository.CategoryRepository;
 import com.ubayKyu.accountingSystem.service.AccountingNoteService;
 import com.ubayKyu.accountingSystem.service.CategoryService;
+import com.ubayKyu.accountingSystem.service.FormatService;
 import com.ubayKyu.accountingSystem.service.LoginService;
 
 @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -58,29 +59,25 @@ public class AccountingPagesController {
 		// -------判斷登入_end----//
 		String userId = request.getParameter("id");
 		String strAccid = request.getParameter("accid");
-		Integer accid = Integer.parseInt(strAccid);
-		//====施工====//
-		if(strAccid == null || strAccid=="")
-        {
-//            Optional<AccountingNote> accountingNote = AccountingNoteService.getAccountingNoteByID(accid);
-//            model.addAttribute("AccAmount", accountingNote.get().getAmount());
-//            model.addAttribute("AccCaption", accountingNote.get().getCaption());
-//            model.addAttribute("AccBody", accountingNote.get().getBody());
-//            model.addAttribute("AccCategory", accountingNote.get().getCategoryID());
-//            model.addAttribute("AccDatetime", accountingNote.get().getCreateDate());
-//            model.addAttribute("AccActType", accountingNote.get().getActType());
-        }
-        UserInfo user =  (UserInfo) session.getAttribute("LoginState");
-        //List<Category> categoryList = CategoryService.getCategoryByUserID(user.getId());
-        //model.addAttribute("CategoryList", categoryList);
-        
-		//====施工====//		
+		Integer accid = FormatService.parseIntOrNull(strAccid); // 檢查accID是否為空
+		// 取得既有的acc note
+		if (strAccid != null && strAccid != "") {
+			Optional<AccountingNote> accountingNote = AccountingNoteService.getAccountingNoteByID(accid);
+			model.addAttribute("AccAmount", accountingNote.get().getAmount());
+			model.addAttribute("AccCaption", accountingNote.get().getCaption());
+			model.addAttribute("AccBody", accountingNote.get().getBody());
+			model.addAttribute("AccCategory", accountingNote.get().getCategoryID());
+			model.addAttribute("AccDatetime", accountingNote.get().getCreateDate());
+			model.addAttribute("AccActType", accountingNote.get().getActType());
+		}
+		List<Category> categoryList = CategoryService.getCategoryByUserID(userId); // 提供前端分類列表供下拉式選單使用
+		model.addAttribute("CategoryList", categoryList);
+
 		return "/AccountingPages/AccountingDetail";
 	}
 
 	@PostMapping("/AccountingDetail")
 	public String AccountingDetail(Model model, HttpServletRequest request,
-			@RequestParam(value = "accid", required = false) String accID,
 			@RequestParam(value = "txtCaption", required = false) String txtCaption,
 			@RequestParam(value = "txtBody", required = false) String txtBody,
 			@RequestParam(value = "txtAmount", required = false) String txtAmount,
@@ -93,34 +90,32 @@ public class AccountingPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入_end----//		
-
+		// -------判斷登入_end----//
 		// ===施工====//
 		String userId = request.getParameter("id");
 		String strAccid = request.getParameter("accid");
-        Integer accid = Integer.parseInt(strAccid);
-//        AccountingNote accountingNote = new AccountingNote();
-//        if(!categoryid.isEmpty())
-//            accountingNote.setCategoryID(categoryid);
-//        accountingNote.setActType(actType);
-//        accountingNote.setAmount(Integer.parseInt(txtAmount));
-//        accountingNote.setCaption(txtCaption);
-//        accountingNote.setBody(txtBody);
-//        accountingNote.setUserID(userId);
-//        String message = "編輯成功";
-//        if(strAccid == null || strAccid=="")
-//        {        	        	
-//            accountingNote.setCreateDate(LocalDateTime.now());
-//            strAccid ="";
-//            message = "新增成功";
-//        }
-//        else {
-//            accountingNote.setAccID(accid);
-//            accountingNote.setCreateDate(LocalDateTime.parse(accDatetime));
-//        }
-//        accID = (AccountingNoteService.saveAccountingNote(accountingNote)).toString();
-//        redirAttrs.addFlashAttribute("message", message);
-		String url = "/AccountingPages/AccountingDetail?id=" + userId + "&accid=" + strAccid;
+		Integer accid = FormatService.parseIntOrNull(strAccid); // 檢查accID是否為空
+
+		AccountingNote accountingNote = new AccountingNote();
+		if (!categoryid.isEmpty())
+			accountingNote.setCategoryID(categoryid);
+		accountingNote.setActType(actType);
+		accountingNote.setAmount(Integer.parseInt(txtAmount));
+		accountingNote.setCaption(txtCaption);
+		accountingNote.setBody(txtBody);
+		accountingNote.setUserID(userId);
+
+		redirAttrs.addFlashAttribute("message", "編輯成功");
+		if (strAccid == null || strAccid == "") {
+			accountingNote.setCreateDate(LocalDateTime.now());
+			redirAttrs.addFlashAttribute("message", "新增成功");
+		} else {
+			accountingNote.setAccID(accid);
+			accountingNote.setCreateDate(LocalDateTime.parse(accDatetime));
+		}
+		accid = AccountingNoteService.saveAccountingNote(accountingNote,userId); //返還Accid
+		
+		String url = "/AccountingPages/AccountingDetail?" + "id=" + userId + "&accid=" + accid; // 返回元分頁
 		return "redirect:" + url;
 
 		// ===施工====//
@@ -208,7 +203,7 @@ public class AccountingPagesController {
 	}
 
 	// CategoryDetail動作
-	@RequestMapping(value = "/CategoryDetail", method = RequestMethod.POST)
+	@PostMapping(value = "/CategoryDetail") // , method = RequestMethod.POST
 	public String CategoryDetail(Model model, HttpServletRequest request,
 			@RequestParam(value = "txtCaption", required = false) String Caption,
 			@RequestParam(value = "txtBody", required = false) String BodyText, RedirectAttributes redirAttrs) {
@@ -252,7 +247,7 @@ public class AccountingPagesController {
 	}
 
 	@RequestMapping(value = "/CategoryList", method = RequestMethod.POST)
-	public String CategoryListDel(@RequestParam(value = "id") String userid,
+	public String CategoryList(@RequestParam(value = "id") String userid,
 			@RequestParam(value = "chbCategoryDel", required = false) String[] categoryDel, Model model,
 			RedirectAttributes redirAttrs) {
 		// -------判斷登入----//

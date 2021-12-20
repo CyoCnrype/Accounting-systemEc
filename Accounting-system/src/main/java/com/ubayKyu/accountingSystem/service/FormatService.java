@@ -13,5 +13,13 @@ public class FormatService {
 		String answer =  dateFormat.format(dateTime);
 		return answer;
 		}
+	
+	public static Integer parseIntOrNull(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 
 }

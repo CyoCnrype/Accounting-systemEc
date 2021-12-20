@@ -49,7 +49,7 @@ public class DefaultController {
 		model.addAttribute("lastAccRecordTime", oldestAccDate);
 		model.addAttribute("recordNumber", accSize);
 		model.addAttribute("menberNumber", userSize);		
-
+		// System.out.println();
 		return "Default.html";
 	}
 
