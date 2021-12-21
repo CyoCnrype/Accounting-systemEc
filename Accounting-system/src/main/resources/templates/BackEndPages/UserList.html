@@ -4,7 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout.html}">
 <head>
-<title>Thymeleaf layout</title>
+<title>UserList</title>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,78 +26,48 @@
 				</td>
 			</tr>
 			<tr>
-				<td><input type="submit"
-					name="ctl00$ContentPlaceHolder1$btnCreate" value="Add"
-					id="ContentPlaceHolder1_btnCreate" /> <input type="submit"
-					name="ctl00$ContentPlaceHolder1$btnDelete" value="Delete"
-					id="ContentPlaceHolder1_btnDelete" /> <br />
+				<td><input type="button" class="btn btn-outline-dark"
+					name="btnAdd" value="Add" id="btnAdd"
+					onclick="window.location.href='/UserDetail'" />&emsp;&emsp; <input
+					type="submit" class="btn btn-outline-dark" name="btnDel"
+					value="Del" id="btnDel" onclick="return confirm('您確定嗎?')" /> <br />
+					<br />
+		</table>
+		<form method="post" action="#" th:action="@{/UserList}" id="form1">
+			<div>
+				<table class="myTable" border="1" cellpadding="6" id="tbUserInfo"
+					style="color: #333333; border-collapse: collapse;">
+					<tr
+						style="color: White; background-color: #507CD1; font-weight: bold;">
+						<th scope="col"></th>
+						<th scope="col">帳號</th>
+						<th scope="col">姓名</th>
+						<th scope="col">Email</th>
+						<th scope="col">等級</th>
+						<th scope="col">建立時間</th>
+						<th scope="col">Act</th>
+					</tr>
+					<tr th:each="UserInfoInterface:${userInfoListTable}">
+						<td style="border-right: 1px solid black;"><input
+							type="checkbox" id="ckbDelete" name="ckbDelete"
+							th:value=${UserInfoInterface.getuserid()}></td>
+						<td style="border-right: 1px solid black;"
+							th:text="${UserInfoInterface.getaccount()}">Account</td>
+						<td style="border-right: 1px solid black;"
+							th:text="${UserInfoInterface.getname()}">Name</td>
+						<td style="border-right: 1px solid black;"
+							th:text="${UserInfoInterface.getemail()}">Email</td>
+						<td style="border-right: 1px solid black;"
+							th:text="${UserInfoInterface.getuser_level()} == 0 ? '管理員' : '一般會員'">UserLevel</td>
+						<td style="border-right: 1px solid black;"
+							th:text="${UserInfoInterface.getcreate_date()}">CreateDate</td>
+						<td><a
+							th:href="@{/UserDetail(userID=${UserInfoInterface.getuserid()})}">Edit</a></td>
+					</tr>
+				</table>
+				<br /> <br /> <span id="pager"></span>
+			</div>
+		</form>
+	</div>
 
-
-					<div>
-						<table cellspacing="0" cellpadding="4"
-							id="ContentPlaceHolder1_gvAccountingList"
-							style="color: #333333; border-collapse: collapse;">
-							<tr
-								style="color: White; background-color: #507CD1; font-weight: bold;">
-								<th scope="col"></th>
-								<th scope="col">帳號</th>
-								<th scope="col">姓名</th>
-								<th scope="col">Email</th>
-								<th scope="col">等級</th>
-								<th scope="col">建立時間</th>
-								<th scope="col">Act</th>
-							</tr>
-							<tr style="background-color: #EFF3FB;">
-								<td><input id="CheckBox1_0" type="checkbox"
-									name="CheckBox1" /></td>
-								<td>帳號1</td>
-								<td>姓名1</td>
-								<td>Email_1</td>
-								<td>一般會員</td>
-								<td>2021-08-19</td>
-								<td><a
-									href="/BackEndPages/UserDetail?ID=1">修改</a>
-								</td>
-							</tr>
-							<tr style="background-color: #EFF3FB;">
-								<td><input id="CheckBox1_0" type="checkbox"
-									name="CheckBox1" /></td>
-								<td>帳號1</td>
-								<td>姓名1</td>
-								<td>Email_1</td>
-								<td>一般會員</td>
-								<td>2021-08-19</td>
-								<td><a
-									href="/BackEndPages/UserDetail?ID=1">修改</a>
-								</td>
-							</tr>
-							<tr style="background-color: #EFF3FB;">
-								<td><input id="CheckBox1_0" type="checkbox"
-									name="CheckBox1" /></td>
-								<td>帳號1</td>
-								<td>姓名1</td>
-								<td>Email_1</td>
-								<td>一般會員</td>
-								<td>2021-08-19</td>
-								<td><a
-									href="/BackEndPages/UserDetail?ID=1">修改</a>
-								</td>
-							</tr>
-							<tr style="background-color: #EFF3FB;">
-								<td><input id="CheckBox1_0" type="checkbox"
-									name="CheckBox1" /></td>
-								<td>帳號1</td>
-								<td>姓名1</td>
-								<td>Email_1</td>
-								<td>一般會員</td>
-								<td>2021-08-19</td>
-								<td><a
-									href="/BackEndPages/UserDetail?ID=1">修改</a>
-								</td>
-							</tr>
-							
-						</table>
-
-
-					</div>
 </body>

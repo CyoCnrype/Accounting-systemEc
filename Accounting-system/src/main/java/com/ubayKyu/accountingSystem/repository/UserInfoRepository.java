@@ -6,6 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import com.ubayKyu.accountingSystem.dto.UserInfoInterface;
 import com.ubayKyu.accountingSystem.entity.UserInfo;
 
 @Repository
@@ -33,7 +35,31 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,String>{
     //查詢資料數量
     @Query(value = "SELECT Count(*)" + "FROM user_info", nativeQuery = true)
 	Integer GetCount();
+    
+  //取得會員資訊(Interface)
+    @Query(value = "SELECT [userid]"
+                + " ,[account]"
+                 + " ,FORMAT([create_date], 'yyyy/MM/dd hh:mm') AS [create_date]"
+                 + " ,[email]"
+                 + " ,[name]"
+                 + " ,[user_level]"
+                 + " FROM [user_info]"
+                 + " ORDER BY [create_date] DESC"
+                 , nativeQuery = true)
+     List<UserInfoInterface> GetUserInfoInterface();
+
+    //刪除會員、流水帳及分類資訊
+    @Query(value = "DELETE FROM [user_info]"
+                + "    WHERE [user_info].[userid] =:userid"
+                + " DELETE FROM [accounting_note]"
+                + "    WHERE [accounting_note].[userid] =:userid"
+                + "    DELETE FROM [category]"
+                + "    WHERE [category].[userid] =:userid"
+                + "    SELECT COUNT(*) FROM [user_info]"
+                , nativeQuery = true)
+     Integer DeleteUserInfoAccountingNoteAndCategoryByUserID(@Param("userid") String userid);
 	
+    
 }
 
 
