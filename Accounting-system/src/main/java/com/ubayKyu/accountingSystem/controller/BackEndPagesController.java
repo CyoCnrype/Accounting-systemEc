@@ -56,8 +56,8 @@ public class BackEndPagesController {
 		// 取得登入者資訊
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
 		Integer userLevel = user.getUserLevel();
-		if (userLevel == 1)
-			return "redirect:/BackEndPages/UserProfile";
+		if (userLevel != 0)
+			return "redirect:/UserProfilePages/UserProfile";
 
 		// 於html使用th:each將UserInfo的List加入table中印出會員列表
 		List<UserInfoInterface> userInfoList = UserInfoService.getUserInfoInterface();
@@ -69,18 +69,17 @@ public class BackEndPagesController {
 	@PostMapping("/UserList")
 	public String userListDel(Model model, @RequestParam(value = "ckbDelete", required = false) String[] userIDsForDel,
 			RedirectAttributes redirectAttrs) {
-
 		// -------判斷登入----//
-				if (!LoginService.IsLogin(session)) {
-					String url = "/Default/Logout"; // 重新導向到指定的url
-					return "redirect:" + url; // 重新導向到指定的url
-				}
+		if (!LoginService.IsLogin(session)) {
+			String url = "/Default/Logout"; // 重新導向到指定的url
+			return "redirect:" + url; // 重新導向到指定的url
+		}
 
 		// 取得登入者資訊
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
 		String currentUserID = user.getUserID();
 		String currentAccount = user.getAccount();
-
+		String saveIfDeleteSelf = "";
 		Integer userInfoCount = 0;
 		if (userIDsForDel != null) {
 			for (String eachUserID : userIDsForDel) {
@@ -91,18 +90,19 @@ public class BackEndPagesController {
 				System.out.println("管理者 " + currentAccount + " 於 " + LocalDate.now() + " 刪除使用者 " + account);
 				userInfoCount = UserInfoService.deleteUserInfoAccountingNoteAndCategoryByUserID(eachUserID);
 
-				if (currentUserID.equals(eachUserID)) { // 若刪除自己
-					redirectAttrs.addFlashAttribute("message", "本會員已刪除，回到預設頁");
-					//LoginService.RemoveLoginSession(session);
-					return "redirect:/Default";
-				}
-
+				if (currentUserID.equals(eachUserID)) // 有刪除自己的狀況則先儲存該ID
+					saveIfDeleteSelf = eachUserID;
+			}
+			if (currentUserID.equals(saveIfDeleteSelf)) {// 刪除自己後登出
+				redirectAttrs.addFlashAttribute("message", "已刪除自己，回到預設頁");
+				LoginService.RemoveLoginSession(session);
+				return "redirect:/Default/Default";
 			}
 			redirectAttrs.addFlashAttribute("message", "已將選取之會員及其流水帳、分類刪除，剩餘 " + userInfoCount + " 位會員");
 		} else
-			redirectAttrs.addFlashAttribute("message", "未選取任何項目");
+			redirectAttrs.addFlashAttribute("message", "未勾選任何項目");
 
-		return "redirect:/UserList";
+		return "redirect:/BackEndPages/UserList";
 	}
 
 }

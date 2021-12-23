@@ -14,26 +14,29 @@
 <body>
 
 	<div layout:fragment="content">
-		<table>
-			<tr>
-				<td colspan="2">
-					<h3>會員管理</h3> 管理者後台 <svg xmlns="http://www.w3.org/2000/svg"
-						width="16" height="16" fill="currentColor"
-						class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+		<form method="post" action="#"
+			th:action="@{/BackEndPages/UserList?userID=}" id="form1">
+			<table>
+				<tr>
+					<td colspan="2">
+						<h3>會員管理</h3> 管理者後台 <svg xmlns="http://www.w3.org/2000/svg"
+							width="16" height="16" fill="currentColor"
+							class="bi bi-caret-right-fill" viewBox="0 0 16 16">
      <path
-							d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+								d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
    </svg> 會員管理 <br /> <br />
-				</td>
-			</tr>
-			<tr>
-				<td><input type="button" class="btn btn-outline-dark"
-					name="btnAdd" value="Add" id="btnAdd"
-					onclick="window.location.href='/UserDetail'" />&emsp;&emsp; <input
-					type="submit" class="btn btn-outline-dark" name="btnDel"
-					value="Del" id="btnDel" onclick="return confirm('您確定嗎?')" /> <br />
-					<br />
-		</table>
-		<form method="post" action="#" th:action="@{/UserList}" id="form1">
+					</td>
+				</tr>
+				<tr>
+					<td><input type="button" class="btn btn-outline-dark"
+						name="btnAdd" value="Add" id="btnAdd"
+						onclick="window.location.href='/BackEndPages/UserDetail?userID='" />&emsp;&emsp;
+
+						<input type="submit" class="btn btn-outline-dark" name="btnDel"
+						value="Del" id="btnDel" onclick="return confirm('您確定嗎?')" /> <br />
+						<br />
+			</table>
+
 			<div>
 				<table class="myTable" border="1" cellpadding="6" id="tbUserInfo"
 					style="color: #333333; border-collapse: collapse;">
@@ -62,7 +65,7 @@
 						<td style="border-right: 1px solid black;"
 							th:text="${UserInfoInterface.getcreate_date()}">CreateDate</td>
 						<td><a
-							th:href="@{/UserDetail(userID=${UserInfoInterface.getuserid()})}">Edit</a></td>
+							th:href="@{/BackEndPages/UserDetail(userID=${UserInfoInterface.getuserid()})}">Edit</a></td>
 					</tr>
 				</table>
 				<br /> <br /> <span id="pager"></span>

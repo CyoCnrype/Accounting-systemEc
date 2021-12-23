@@ -26,8 +26,8 @@ public class LoginService {
 		return answer;
 	}
 
-	public static Boolean IsLogin(HttpSession session) {		
-		Object currentUserInfo =  session.getAttribute("LoginState");
+	public static Boolean IsLogin(HttpSession session) {
+		Object currentUserInfo = session.getAttribute("LoginState");
 		if (currentUserInfo != null) {
 			// if (session.getAttribute("LoginState") != null) {
 			return true;
@@ -36,4 +36,9 @@ public class LoginService {
 		// return "redirect:" + url;
 		return false;
 	}
+
+	public static void RemoveLoginSession(HttpSession session) {
+		session.removeAttribute("LoginState");
+	}
+
 }

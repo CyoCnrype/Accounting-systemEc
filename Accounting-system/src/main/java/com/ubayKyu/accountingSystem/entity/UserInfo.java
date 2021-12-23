@@ -33,16 +33,19 @@ public class UserInfo {
 	// 建立時間
 	@Column(name = "CreateDate", nullable = false, columnDefinition = "datetime default getdate()")
 	private LocalDateTime CreateDate;
-	
-	//----getter & setter ----
+	// 修改時間
+	@Column(name = "EditDate", nullable = false, columnDefinition = "datetime default getdate()")
+	private LocalDateTime EditDate;
+
+	// ----getter & setter ----
 	public String getUserID() {
 		return UserID;
 	}
-	
+
 	public String getID() {
 		return UserID;
 	}
-	
+
 	public String getId() {
 		return UserID;
 	}
@@ -103,6 +106,14 @@ public class UserInfo {
 	public String toString() {
 		return "UserInfo [UserID=" + UserID + ", Account=" + Account + ", PWD=" + PWD + ", Name=" + Name + ", Email="
 				+ Email + ", UserLevel=" + UserLevel + ", CreateDate=" + CreateDate + "]";
+	}
+
+	public LocalDateTime getEditDate() {
+		return EditDate;
+	}
+
+	public void setEditDate(LocalDateTime editDate) {
+		EditDate = editDate;
 	}
 
 }

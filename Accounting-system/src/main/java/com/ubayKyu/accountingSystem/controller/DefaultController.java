@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ubayKyu.accountingSystem.repository.AccountingNoteRepository;
 import com.ubayKyu.accountingSystem.repository.UserInfoRepository;
 import com.ubayKyu.accountingSystem.service.FormatService;
-import com.ubayKyu.accountingSystem.repository.AccountingNoteRepository;
 
 @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 @Controller
@@ -48,25 +48,31 @@ public class DefaultController {
 		model.addAttribute("firstAccRecordTime", latestAccDate);
 		model.addAttribute("lastAccRecordTime", oldestAccDate);
 		model.addAttribute("recordNumber", accSize);
-		model.addAttribute("menberNumber", userSize);		
+		model.addAttribute("menberNumber", userSize);
 		// System.out.println();
+
+		// ======施工==========//
+		// WriteTextService.writeToText("cyka blyat");
+		// ======施工==========//
+
 		return "Default.html";
 	}
 
 	@GetMapping("/Logout")
-	public String Logout(Model model,RedirectAttributes redirAttrs) {
+	public String Logout(Model model, RedirectAttributes redirAttrs) {
 		session.removeAttribute("LoginState");
-		redirAttrs.addFlashAttribute("message", "登出成功");		
+		redirAttrs.addFlashAttribute("message", "登出成功");
 		String url = "/Default/Default"; // 重新導向到指定的url
 		return "redirect:" + url; // 重新導向到指定的url
 	}
-	
-	//驗證彈出視窗
-	@ResponseBody
-    public String testJS() {
-        return "<Script language='JavaScript'>alert('回應填寫成功!');</Script>";
-        //return "<Script language='JavaScript'>alert('回應填寫成功!');location.href='/Default/Default'; </Script>";
-    }
 
+	// 驗證彈出視窗
+	@ResponseBody
+	public String testJS() {
+		return "<Script language='JavaScript'>alert('回應填寫成功!');</Script>";
+		// return "<Script
+		// language='JavaScript'>alert('回應填寫成功!');location.href='/Default/Default';
+		// </Script>";
+	}
 
 }

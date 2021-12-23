@@ -66,10 +66,12 @@ th {
 <script th:inline="javascript">
 	$(function() {
 		var userLevel = "[[${session.UserLevel}]]";
-		if (userLevel == 0)
-			document.getElementById('userLevel').src = "https://upload.cc/i1/2021/12/08/QrlPpw.png";
-		else if (userLevel == 1)
+		if (userLevel == 0) {
+			document.getElementById('userLevel').src = "https://upload.cc/i1/2021/12/08/QrlPpw.png";			
+		} else if (userLevel == 1) {
 			document.getElementById('userLevel').src = "https://upload.cc/i1/2021/12/08/9Nz7Jm.png";
+			$("#divManagerBc").hide(); 
+		}
 	});
 </script>
 <!--  使用者圖片_end -->
@@ -105,10 +107,10 @@ th {
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">流水帳紀錄</li>
 							<li class="breadcrumb-item active" aria-current="page">
-<!-- 							<a href="/AccountingPages/AccountingList">流水帳管理</a> -->
+								<!-- 							<a href="/AccountingPages/AccountingList">流水帳管理</a> -->
 								<a
 								th:href="@{/AccountingPages/AccountingList(id=${session.LoginState.getUserID()})}">流水帳管理</a>
-								</li>
+							</li>
 							<li class="breadcrumb-item active" aria-current="page"><a
 								th:href="@{/AccountingPages/CategoryList(id=${session.LoginState.getUserID()})}">流水帳分類管理</a>
 							</li>
