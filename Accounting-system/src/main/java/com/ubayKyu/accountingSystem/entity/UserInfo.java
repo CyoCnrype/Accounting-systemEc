@@ -34,7 +34,7 @@ public class UserInfo {
 	@Column(name = "CreateDate", nullable = false, columnDefinition = "datetime default getdate()")
 	private LocalDateTime CreateDate;
 	// 修改時間
-	@Column(name = "EditDate", nullable = false, columnDefinition = "datetime default getdate()")
+	@Column(name = "EditDate", nullable = true, columnDefinition = "datetime default getdate()")
 	private LocalDateTime EditDate;
 
 	// ----getter & setter ----
@@ -102,11 +102,6 @@ public class UserInfo {
 		CreateDate = createDate;
 	}
 
-	@Override
-	public String toString() {
-		return "UserInfo [UserID=" + UserID + ", Account=" + Account + ", PWD=" + PWD + ", Name=" + Name + ", Email="
-				+ Email + ", UserLevel=" + UserLevel + ", CreateDate=" + CreateDate + "]";
-	}
 
 	public LocalDateTime getEditDate() {
 		return EditDate;
@@ -114,6 +109,12 @@ public class UserInfo {
 
 	public void setEditDate(LocalDateTime editDate) {
 		EditDate = editDate;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfo [UserID=" + UserID + ", Account=" + Account + ", PWD=" + PWD + ", Name=" + Name + ", Email="
+				+ Email + ", UserLevel=" + UserLevel + ", CreateDate=" + CreateDate + ", EditDate=" + EditDate + "]";
 	}
 
 }

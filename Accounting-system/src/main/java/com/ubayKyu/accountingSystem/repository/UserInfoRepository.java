@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ubayKyu.accountingSystem.dto.UserInfoInterface;
 import com.ubayKyu.accountingSystem.entity.UserInfo;
@@ -27,6 +28,7 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,String>{
     		+ "      ,[name]"
     		+ "      ,[pwd]"
     		+ "      ,[user_level]"
+    		+ "      ,[edit_date]"
     		+ "  FROM [AccNoteJava].[dbo].[user_info]"
     		+"  WHERE [account] =:account AND [pwd]=:pwd"
     		, nativeQuery = true)
@@ -59,6 +61,23 @@ public interface UserInfoRepository extends JpaRepository<UserInfo,String>{
                 , nativeQuery = true)
      Integer DeleteUserInfoAccountingNoteAndCategoryByUserID(@Param("userid") String userid);
 	
+    @Query(value = "SELECT [userid]"
+            + "     ,[account]"
+             + "        ,FORMAT([create_date], 'yyyy/MM/dd hh:mm:ss') AS [create_date]"
+             + "        ,[email]"
+             + "        ,[name]"
+             + "        ,[user_level]"
+             + "        ,FORMAT([edit_date], 'yyyy/MM/dd hh:mm:ss') AS [edit_date]"
+             + "    FROM [user_info]"
+             + "    WHERE [user_info].[userid] =:userid"
+             , nativeQuery = true)
+    Optional<UserInfoInterface> FindUserInfoInterfaceByID(@Param("userid") String userid);
+    
+    //檢查帳號是否重複
+    @Query(value = "  SELECT COUNT(*)"
+            + "  FROM  user_info"
+            + "  WHERE account =:account", nativeQuery = true)
+    int FindUserAccountByAccountAndUserID(@Param("account") String account);
     
 }
 

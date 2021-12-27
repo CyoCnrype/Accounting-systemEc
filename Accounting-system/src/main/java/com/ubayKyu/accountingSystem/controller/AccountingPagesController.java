@@ -91,10 +91,30 @@ public class AccountingPagesController {
 			return "redirect:" + url; // 重新導向到指定的url
 		}
 		// -------判斷登入_end----//
-		// ===施工====//
+
 		String userId = request.getParameter("id");
 		String strAccid = request.getParameter("accid");
 		Integer accid = FormatService.parseIntOrNull(strAccid); // 檢查accID是否為空
+
+		// 驗證取得之資料
+		if (txtAmount.isEmpty() || txtAmount == null) {
+			redirAttrs.addFlashAttribute("message", "金額不可為空");
+			String url = "/AccountingPages/AccountingDetail?" + "id=" + userId + "&accid=" + strAccid; // 返回元分頁
+			return "redirect:" + url;
+		}
+
+		Integer amount = Integer.parseInt(txtAmount);
+		if (amount > 10000000 || amount < 0) {
+			redirAttrs.addFlashAttribute("message", "輸入金額不可超過一千萬");
+			String url = "/AccountingPages/AccountingDetail?" + "id=" + userId + "&accid=" + strAccid; // 返回元分頁
+			return "redirect:" + url;
+		}
+
+		if (txtCaption.isEmpty() || txtCaption == null) {
+			redirAttrs.addFlashAttribute("message", "標題不可為空");
+			String url = "/AccountingPages/AccountingDetail?" + "id=" + userId + "&accid=" + strAccid; // 返回元分頁
+			return "redirect:" + url;
+		}
 
 		AccountingNote accountingNote = new AccountingNote();
 		if (!categoryid.isEmpty())
@@ -113,12 +133,10 @@ public class AccountingPagesController {
 			accountingNote.setAccID(accid);
 			accountingNote.setCreateDate(LocalDateTime.parse(accDatetime));
 		}
-		accid = AccountingNoteService.saveAccountingNote(accountingNote,userId); //返還Accid
-		
+		accid = AccountingNoteService.saveAccountingNote(accountingNote, userId); // 返還Accid
+
 		String url = "/AccountingPages/AccountingDetail?" + "id=" + userId + "&accid=" + accid; // 返回元分頁
 		return "redirect:" + url;
-
-		// ===施工====//
 
 	}
 
@@ -214,6 +232,14 @@ public class AccountingPagesController {
 		}
 		String CategoryID = request.getParameter("CategoryID");
 		String userid = request.getParameter("id");
+
+		// 後端驗證標題IsNull
+		if (Caption.isEmpty() || Caption == null)
+		{
+			redirAttrs.addFlashAttribute("message", "標題不可為空");
+			String url = "/AccountingPages/CategoryDetail" + "?id=" + userid + "&CategoryID=" + CategoryID; // 返回元分頁
+			return "redirect:" + url;
+		}
 
 		if (CategoryService.IsUpdating(Caption, userid, CategoryID)) // 標題重複但有CategoryID => 編輯
 		{
