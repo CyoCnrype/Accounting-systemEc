@@ -1,5 +1,6 @@
 package com.ubayKyu.accountingSystem.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ubayKyu.accountingSystem.dto.UserInfoInterface;
 import com.ubayKyu.accountingSystem.entity.UserInfo;
+import com.ubayKyu.accountingSystem.service.GetMac;
 import com.ubayKyu.accountingSystem.service.LoginService;
 import com.ubayKyu.accountingSystem.service.UserInfoService;
+import com.ubayKyu.accountingSystem.service.WriteTextService;
 
 @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 @Controller
@@ -31,7 +35,11 @@ public class BackEndPagesController {
 	@Autowired
 	UserInfoService UserInfoService;
 	@Autowired
+	WriteTextService WriteTextService;
+	@Autowired
 	HttpSession session;
+	@Value("${username}")
+	String username;
 
 	@GetMapping("/UserDetail")
 	public String UserDetail(Model model, @RequestParam(value = "userID", required = false) String userID,
@@ -103,7 +111,6 @@ public class BackEndPagesController {
 			UserInfo.setCreateDate(LocalDateTime.now());
 			message = "新增成功";
 		}
-		
 
 		if (User.getId().equals(userID)) {
 			UserInfo NewSessionUserInfo = UserInfoService.findByUserID(userID).get();
@@ -152,27 +159,43 @@ public class BackEndPagesController {
 		String currentAccount = user.getAccount();
 		String saveIfDeleteSelf = "";
 		Integer userInfoCount = 0;
+		String message = ""; // 提示訊息
 		if (userIDsForDel != null) {
 			for (String eachUserID : userIDsForDel) {
 
 				Optional<UserInfo> userInfoToDel = UserInfoService.findByUserID(eachUserID);
 				String account = userInfoToDel.get().getAccount();
+				String logMessage = "管理者 " + currentAccount + " 於 " + LocalDate.now() + " 刪除使用者 " + account ;//寫入log之訊息
+				message += logMessage + "\n";
 
-				System.out.println("管理者 " + currentAccount + " 於 " + LocalDate.now() + " 刪除使用者 " + account);
+				// System.out.println("GetMac.getMacOnWindow()=" + macName);
+				try {
+					WriteTextService.writeToTextByUserName(logMessage, username);
+				} catch (IOException e) {
+					// TODO 自動產生的 catch 區塊
+					e.printStackTrace();
+				}
+
 				userInfoCount = UserInfoService.deleteUserInfoAccountingNoteAndCategoryByUserID(eachUserID);
 
 				if (currentUserID.equals(eachUserID)) // 有刪除自己的狀況則先儲存該ID
 					saveIfDeleteSelf = eachUserID;
 			}
 			if (currentUserID.equals(saveIfDeleteSelf)) {// 刪除自己後登出
-				redirectAttrs.addFlashAttribute("message", "已刪除自己，回到預設頁");
+				message += "已刪除自己，回到預設頁" + "\n";
+				// redirectAttrs.addFlashAttribute("message", "已刪除自己，回到預設頁");
 				LoginService.RemoveLoginSession(session);
 				return "redirect:/Default/Default";
 			}
-			redirectAttrs.addFlashAttribute("message", "已將選取之會員及其流水帳、分類刪除，剩餘 " + userInfoCount + " 位會員");
-		} else
+			message += "已將選取之會員及其流水帳、分類刪除，剩餘 " + userInfoCount + " 位會員" + "\n";
+			// redirectAttrs.addFlashAttribute("message", "已將選取之會員及其流水帳、分類刪除，剩餘 " +
+			// userInfoCount + " 位會員");
+		} else {
+			message += "未勾選任何項目" + "\n";
 			redirectAttrs.addFlashAttribute("message", "未勾選任何項目");
+		}
 
+		redirectAttrs.addFlashAttribute("message", message);
 		return "redirect:/BackEndPages/UserList";
 	}
 
