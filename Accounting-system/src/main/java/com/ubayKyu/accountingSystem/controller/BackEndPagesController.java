@@ -173,7 +173,7 @@ public class BackEndPagesController {
 					WriteTextService.writeToTextByUserName(logMessage, username);
 				} catch (IOException e) {
 					// TODO 自動產生的 catch 區塊
-					e.printStackTrace();
+					e.printStackTrace(); 
 				}
 
 				userInfoCount = UserInfoService.deleteUserInfoAccountingNoteAndCategoryByUserID(eachUserID);
