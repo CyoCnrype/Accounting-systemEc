@@ -42,7 +42,7 @@ public class BackEndPagesController {
 	String username;
 
 	@GetMapping("/UserDetail")
-	public String UserDetail(Model model, @RequestParam(value = "userID", required = false) String userID,
+	public String UserDetail(Model model, @RequestParam(value = "userID", required = true) String userID,
 			RedirectAttributes redirectAttrs) {
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
@@ -53,7 +53,12 @@ public class BackEndPagesController {
 
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
 		if (user.getUserLevel() != 0) {
-			redirectAttrs.addFlashAttribute("message", "權限不足，導向至元頁面");
+			boolean managerRetired = (boolean) session.getAttribute("managerRetired");
+			if (managerRetired)
+				redirectAttrs.addFlashAttribute("message", "管理員卸任成功、辛苦了\n");
+			else
+				redirectAttrs.addFlashAttribute("message", "權限不足，導向至元頁面");
+			session.removeAttribute("managerRetired");
 			return "redirect:/UserProfilePages/UserProfile";
 		}
 		if (userID != "") {
@@ -69,7 +74,7 @@ public class BackEndPagesController {
 	}
 
 	@PostMapping("/UserDetail")
-	public String UserDetail(@RequestParam(value = "userID", required = false) String userID,
+	public String UserDetail(@RequestParam(value = "userID", required = true) String userID,
 			@RequestParam(value = "txtAccount", required = false) String txtAccount,
 			@RequestParam(value = "txtName", required = false) String txtName,
 			@RequestParam(value = "txtEmail", required = false) String txtEmail,
@@ -89,6 +94,9 @@ public class BackEndPagesController {
 			message += "姓名不能為空" + "</br>";
 		if (txtEmail == null)
 			message += "Email不能為空" + "</br>";
+		// 當將管理員變更權限為一般會員時檢查管理員人數不能小於1
+		if (userID != "" && ddlUserLevel != 0 && UserInfoService.IsAdminUserLevelChange(userID))
+			message += "管理員數不能為0人\n";
 		if (!message.isEmpty()) {
 			redirAttrs.addFlashAttribute("message", message);
 			// 判斷是新增還是編輯，決定回傳地址
@@ -102,14 +110,15 @@ public class BackEndPagesController {
 		UserInfo User = (UserInfo) session.getAttribute("LoginState");
 		UserInfo UserInfo = new UserInfo();
 		if (userID != "") {
-
 			UserInfo.setCreateDate(LocalDateTime.parse(CreateDate, formatter));
 			UserInfo.setEditDate(LocalDateTime.now());
-			message = "編輯成功";
+			message = "編輯成功\n";
+			if (ddlUserLevel != 0 && UserInfoService.IsAdminChangeToNormalUser(userID, ddlUserLevel)) // 如果為卸任、則寫入session
+				session.setAttribute("managerRetired", true);
 		} else {
 			userID = UUID.randomUUID().toString();
 			UserInfo.setCreateDate(LocalDateTime.now());
-			message = "新增成功";
+			message = "新增成功\n";
 		}
 
 		if (User.getId().equals(userID)) {
@@ -160,12 +169,13 @@ public class BackEndPagesController {
 		String saveIfDeleteSelf = "";
 		Integer userInfoCount = 0;
 		String message = ""; // 提示訊息
+
 		if (userIDsForDel != null) {
 			for (String eachUserID : userIDsForDel) {
 
 				Optional<UserInfo> userInfoToDel = UserInfoService.findByUserID(eachUserID);
 				String account = userInfoToDel.get().getAccount();
-				String logMessage = "管理者 " + currentAccount + " 於 " + LocalDate.now() + " 刪除使用者 " + account ;//寫入log之訊息
+				String logMessage = "管理者 " + currentAccount + " 於 " + LocalDate.now() + " 刪除使用者 " + account;// 寫入log之訊息
 				message += logMessage + "\n";
 
 				// System.out.println("GetMac.getMacOnWindow()=" + macName);
@@ -173,7 +183,7 @@ public class BackEndPagesController {
 					WriteTextService.writeToTextByUserName(logMessage, username);
 				} catch (IOException e) {
 					// TODO 自動產生的 catch 區塊
-					e.printStackTrace(); 
+					e.printStackTrace();
 				}
 
 				userInfoCount = UserInfoService.deleteUserInfoAccountingNoteAndCategoryByUserID(eachUserID);

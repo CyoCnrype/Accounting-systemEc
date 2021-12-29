@@ -39,7 +39,7 @@ public class UserProfilePagesController {
 			return "/UserProfilePages/Login";
 		}
 		// -------判斷登入----//
-		String url = "/AccountingPages/AccountingList"; // 重新導向到指定的url
+		String url = "/UserProfilePages/UserProfile"; // 重新導向到指定的url
 		return "redirect:" + url; // 重新導向到指定的url
 
 	}
@@ -97,7 +97,6 @@ public class UserProfilePagesController {
 			// if (UserInfoRepository.GetUserByLogin(account, password) != null) {
 			result = true;
 			// 寫入session
-			// 12/7實作預定
 			session.setAttribute("LoginState", currentUserInfo);
 			int userLevel = currentUserInfo.getUserLevel();
 			session.setAttribute("UserLevel", userLevel);

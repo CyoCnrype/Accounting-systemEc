@@ -15,6 +15,7 @@ public class LoginService {
 	@Autowired
 	HttpSession session;
 
+	//嘗試登入行為
 	public boolean TryLogin(String account, String password) {
 		boolean answer = false;
 
@@ -26,6 +27,7 @@ public class LoginService {
 		return answer;
 	}
 
+	//查詢是否為登入狀態
 	public static Boolean IsLogin(HttpSession session) {
 		Object currentUserInfo = session.getAttribute("LoginState");
 		if (currentUserInfo != null) {

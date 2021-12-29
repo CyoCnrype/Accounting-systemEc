@@ -51,10 +51,6 @@ public class DefaultController {
 		model.addAttribute("menberNumber", userSize);
 		// System.out.println();
 
-		// ======施工==========//
-		// WriteTextService.writeToText("cyka blyat");
-		// ======施工==========//
-
 		return "Default.html";
 	}
 

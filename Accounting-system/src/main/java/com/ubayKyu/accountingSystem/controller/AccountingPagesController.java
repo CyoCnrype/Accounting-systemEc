@@ -138,7 +138,7 @@ public class AccountingPagesController {
 
 	// AccountingList顯示
 	@GetMapping("/AccountingList")
-	public String AccountingList(Model model, @RequestParam(value = "id") String userid) {
+	public String AccountingList(Model model, @RequestParam(value = "id", required = true) String userid) {
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
 			String url = "/Default/Logout"; // 重新導向到指定的url
@@ -164,7 +164,7 @@ public class AccountingPagesController {
 
 	// AccountingList動作
 	@PostMapping("/AccountingList")
-	public String accountingListDel(Model model, @RequestParam(value = "id") String userid,
+	public String AccountingListDel(Model model, @RequestParam(value = "id", required = false) String userid,
 			@RequestParam(value = "ckbDelete", required = false) Integer[] accIDsForDel,
 			RedirectAttributes redirectAttrs) {
 		// -------判斷登入----//
@@ -230,8 +230,7 @@ public class AccountingPagesController {
 		String userid = request.getParameter("id");
 
 		// 後端驗證標題IsNull
-		if (Caption.isEmpty() || Caption == null)
-		{
+		if (Caption.isEmpty() || Caption == null) {
 			redirAttrs.addFlashAttribute("message", "標題不可為空");
 			String url = "/AccountingPages/CategoryDetail" + "?id=" + userid + "&CategoryID=" + CategoryID; // 返回元分頁
 			return "redirect:" + url;
@@ -255,7 +254,7 @@ public class AccountingPagesController {
 	}
 
 	@GetMapping("/CategoryList")
-	public String CategoryList(Model model, @RequestParam(value = "id") String userid) {
+	public String CategoryList(Model model, @RequestParam(value = "id", required = false) String userid) {
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
 			String url = "/Default/Logout"; // 重新導向到指定的url
@@ -269,7 +268,7 @@ public class AccountingPagesController {
 	}
 
 	@RequestMapping(value = "/CategoryList", method = RequestMethod.POST)
-	public String CategoryList(@RequestParam(value = "id") String userid,
+	public String CategoryList(@RequestParam(value = "id", required = false) String userid,
 			@RequestParam(value = "chbCategoryDel", required = false) String[] categoryDel, Model model,
 			RedirectAttributes redirAttrs) {
 		// -------判斷登入----//
