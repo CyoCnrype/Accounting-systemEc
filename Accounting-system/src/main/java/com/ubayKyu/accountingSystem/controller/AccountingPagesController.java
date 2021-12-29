@@ -29,6 +29,9 @@ import com.ubayKyu.accountingSystem.service.CategoryService;
 import com.ubayKyu.accountingSystem.service.FormatService;
 import com.ubayKyu.accountingSystem.service.LoginService;
 
+import javax.servlet.http.HttpServletResponse;
+
+
 @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 @Controller
 @RequestMapping("/AccountingPages")
@@ -44,6 +47,8 @@ public class AccountingPagesController {
 	AccountingNoteService AccountingNoteService;
 	@Autowired
 	AccountingNoteRepository AccountingNoteRepository;
+	@Autowired
+    private HttpServletResponse response;
 
 	@GetMapping("/AccountingDetail")
 	public String AccountingDetail(Model model, HttpServletRequest request) {
@@ -145,6 +150,11 @@ public class AccountingPagesController {
 			return "redirect:" + url; // 重新導向到指定的url
 		}
 		// -------判斷登入_end----//
+		//如果沒有id則將網頁狀態設定為403
+		if(userid==null ||userid.isEmpty()) {  
+			response.setStatus(403);
+			return null; // 重新導向到指定的url
+			}
 
 		// 於html使用th:each將AccountingNote的List加入table中印出流水帳列表
 		List<AccountingNoteInterFace> accountingNoteList = AccountingNoteService
@@ -164,7 +174,7 @@ public class AccountingPagesController {
 
 	// AccountingList動作
 	@PostMapping("/AccountingList")
-	public String AccountingListDel(Model model, @RequestParam(value = "id", required = false) String userid,
+	public String AccountingListDel(Model model, @RequestParam(value = "id", required = true) String userid,
 			@RequestParam(value = "ckbDelete", required = false) Integer[] accIDsForDel,
 			RedirectAttributes redirectAttrs) {
 		// -------判斷登入----//
@@ -254,7 +264,7 @@ public class AccountingPagesController {
 	}
 
 	@GetMapping("/CategoryList")
-	public String CategoryList(Model model, @RequestParam(value = "id", required = false) String userid) {
+	public String CategoryList(Model model, @RequestParam(value = "id", required = true) String userid) {
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
 			String url = "/Default/Logout"; // 重新導向到指定的url
@@ -268,7 +278,7 @@ public class AccountingPagesController {
 	}
 
 	@RequestMapping(value = "/CategoryList", method = RequestMethod.POST)
-	public String CategoryList(@RequestParam(value = "id", required = false) String userid,
+	public String CategoryList(@RequestParam(value = "id", required = true) String userid,
 			@RequestParam(value = "chbCategoryDel", required = false) String[] categoryDel, Model model,
 			RedirectAttributes redirAttrs) {
 		// -------判斷登入----//

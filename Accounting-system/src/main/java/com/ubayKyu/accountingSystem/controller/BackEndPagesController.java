@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ubayKyu.accountingSystem.dto.UserInfoInterface;
 import com.ubayKyu.accountingSystem.entity.UserInfo;
-import com.ubayKyu.accountingSystem.service.GetMac;
 import com.ubayKyu.accountingSystem.service.LoginService;
 import com.ubayKyu.accountingSystem.service.UserInfoService;
 import com.ubayKyu.accountingSystem.service.WriteTextService;

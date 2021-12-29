@@ -39,6 +39,7 @@ public class LoginService {
 		return false;
 	}
 
+	//移除session
 	public static void RemoveLoginSession(HttpSession session) {
 		session.removeAttribute("LoginState");
 	}
