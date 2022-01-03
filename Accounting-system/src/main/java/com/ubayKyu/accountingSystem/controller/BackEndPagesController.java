@@ -120,7 +120,7 @@ public class BackEndPagesController {
 			message = "新增成功\n";
 		}
 
-		if (User.getId().equals(userID)) {
+		if (User.getId().equals(userID)) { 
 			UserInfo NewSessionUserInfo = UserInfoService.findByUserID(userID).get();
 			session.setAttribute("LoginState", NewSessionUserInfo);
 		}
