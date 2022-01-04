@@ -51,7 +51,7 @@ public class BackEndPagesController {
 		// -------判斷登入_end----//
 
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
-		if (user.getUserLevel() != 0) {
+		if (user.getUserLevel() != 0) { 
 			boolean managerRetired = (boolean) session.getAttribute("managerRetired");
 			if (managerRetired)
 				redirectAttrs.addFlashAttribute("message", "管理員卸任成功、辛苦了\n");
