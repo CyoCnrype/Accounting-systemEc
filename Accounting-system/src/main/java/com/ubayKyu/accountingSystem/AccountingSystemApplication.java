@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AccountingSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AccountingSystemApplication.class, args);  //入口點
+		SpringApplication.run(AccountingSystemApplication.class, args); // 入口點
 	}
 
 }
