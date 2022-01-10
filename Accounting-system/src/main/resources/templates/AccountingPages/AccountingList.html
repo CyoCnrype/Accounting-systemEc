@@ -37,10 +37,10 @@
 						th:onclick="'window.location.href = \'' + @{/AccountingPages/AccountingDetail(id=${session.LoginState.getUserID()},accid=${''})} + '\''" />
 						&nbsp;&nbsp; <input type="submit" class="btn btn-outline-dark"
 						name="btnDel" value="Del" id="btnDel"
-						onclick="return confirm('您確定嗎?')" />&emsp; &nbsp;&ensp;
-					<!--顯示小計 -->
-					</br><a>總金額：[[${subtotalTotal}]]</a>&nbsp;&nbsp;
-					</br><a>本月小計：[[${subtotalThisMonth}]]</a></td>&nbsp;&nbsp;
+						onclick="return confirm('您確定嗎?')" />&emsp; &nbsp;&ensp; <!--顯示小計 -->
+						</br>
+					<a>總金額：[[${subtotalTotal}]]</a>&nbsp;&nbsp; </br>
+					<a>本月小計：[[${subtotalThisMonth}]]</a></td>&nbsp;&nbsp;
 					<!--顯示小計 -->
 				</tr>
 				<tr>

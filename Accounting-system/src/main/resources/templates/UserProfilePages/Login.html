@@ -30,28 +30,28 @@
 </style>
 
 <!--  IsPostback -->
- <script>
-  function forward() {
-   setTimeout("forward()", 100);
-   history.forward();
-  }
-  if (document.all)
-   history.forward(); //for IE、Edge
-  else
-   setTimeout("forward()", 100); //for Chrome、Firefox
- </script>
+<script>
+	function forward() {
+		setTimeout("forward()", 100);
+		history.forward();
+	}
+	if (document.all)
+		history.forward(); //for IE、Edge
+	else
+		setTimeout("forward()", 100); //for Chrome、Firefox
+</script>
 <!--  IsPostback -->
 <!--  message洞 -->
 <script th:inline="javascript">
-        var message = /*[[${message}]]*/ "";
-        if(message != null)
-        alert(message);
+	var message = /*[[${message}]]*/"";
+	if (message != null)
+		alert(message);
 </script>
 <!--  message洞 -->
 
 </head>
 <body>
-	<form  name=""  method="post" action="/UserProfilePages/userLogin">
+	<form name="" method="post" action="/UserProfilePages/userLogin">
 
 		<div id="body">
 
@@ -72,24 +72,19 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>帳號 &nbsp &nbsp <input
-						name="account" type="text"
+					<td>帳號 &nbsp &nbsp <input name="account" type="text"
 						id="account" /></td>
 				</tr>
 				<tr>
-					<td>密碼 &nbsp &nbsp <input
-						name="password" type="password"
+					<td>密碼 &nbsp &nbsp <input name="password" type="password"
 						id="password" /></td>
 				</tr>
 				<tr>
-					<td><input type="submit"
-						name="login" value="登入"
-						id="login" /><br />
-					<br /></td>
-					
-					
-					<td>
-					</td>
+					<td><input type="submit" name="login" value="登入" id="login" /><br />
+						<br /></td>
+
+
+					<td></td>
 
 
 				</tr>

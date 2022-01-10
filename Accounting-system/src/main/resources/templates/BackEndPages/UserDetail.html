@@ -38,17 +38,17 @@
 </head>
 <body>
 	<div layout:fragment="content" class="text-left">
-<form method="post" action="" id="form1">
-		<h3>會員管理</h3>
-		管理者後台
-		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-			fill="currentColor" class="bi bi-caret-right-fill"
-			viewBox="0 0 16 16">
+		<form method="post" action="" id="form1">
+			<h3>會員管理</h3>
+			管理者後台
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+				fill="currentColor" class="bi bi-caret-right-fill"
+				viewBox="0 0 16 16">
      <path
-				d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+					d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
    </svg>
-		會員管理 <br /> <br />
-		
+			會員管理 <br /> <br />
+
 			<div id=userOne>
 				<div class="AddAccount">帳號 &nbsp;&nbsp;[[${Account}]]</div>
 				<div class="EditAccount">
@@ -59,21 +59,20 @@
 					id="txtName" th:value="${Name}" required placeholder="請輸入姓名" /><br />
 				<br /> Email&nbsp;&nbsp;<input type="email" name="txtEmail"
 					id="txtEmail" th:value="${Email}" required placeholder="請輸入Email" /><br />
-				<br /> 等級&nbsp;&nbsp;<select name="ddlUserLevel" class="ddlUserLevel">
+				<br /> 等級&nbsp;&nbsp;<select name="ddlUserLevel"
+					class="ddlUserLevel">
 					<option value="0">管理者</option>
 					<option value="1">一般會員</option>
 				</select> <br /> <br />
 				<div class="AddAccount">
-					建立時間 &emsp; [[${CreateTime}]]
-					
-					</br><input type="hidden" name="hiddenCreateDate" id="hiddenCreateDate"
+					建立時間 &emsp; [[${CreateTime}]] </br>
+					<input type="hidden" name="hiddenCreateDate" id="hiddenCreateDate"
 						th:value="${CreateTime}" /> 修改時間 &emsp; [[${EditTime}]]
-					
+
 				</div>
 				<input type="submit" class="btn btn-outline-dark" name="btnSave"
 					value="Save" id="btnSave" /> &nbsp;&nbsp; <a
-					th:href="@{/BackEndPages/UserList}"> 
-					<input type="button"
+					th:href="@{/BackEndPages/UserList}"> <input type="button"
 					class="btn btn-outline-dark" name="btnCancel" value="Cancel"
 					id="btnCancel" /></a>
 			</div>

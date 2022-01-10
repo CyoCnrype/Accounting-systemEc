@@ -14,8 +14,7 @@
 <body>
 
 	<div layout:fragment="content">
-		<form method="post" action=""		
-			id="form1">
+		<form method="post" action="" id="">
 			<table>
 				<tr>
 					<td colspan="2">
@@ -30,15 +29,15 @@
 				</br>
 				<tr>
 					<td>標題 <input name="txtCaption" type="text" id="txtCaption"
-						th:value="${txtCaption}" required placeholder="請輸入標題" MaxLength="20"/> <br /> 
-						備註 <textarea name="txtBody"
-							rows="2" cols="20" id="txtBody" th:text="${txtBody}" placeholder="請輸入內容"></textarea>
+						th:value="${txtCaption}" required placeholder="請輸入標題"
+						MaxLength="20" /> <br /> 備註 <textarea name="txtBody" rows="2"
+							cols="20" id="txtBody" th:text="${txtBody}" placeholder="請輸入內容"></textarea>
 						<br /></td>
 				</tr>
 			</table>
 			<input type="submit" name="Save" value="Save" id="Save">
 
-			
-	</form>
+
+		</form>
 	</div>
 </body>
