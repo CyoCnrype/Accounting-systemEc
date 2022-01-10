@@ -31,7 +31,6 @@ import com.ubayKyu.accountingSystem.service.LoginService;
 
 import javax.servlet.http.HttpServletResponse;
 
-
 @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 @Controller
 @RequestMapping("/AccountingPages")
@@ -48,7 +47,7 @@ public class AccountingPagesController {
 	@Autowired
 	AccountingNoteRepository AccountingNoteRepository;
 	@Autowired
-    private HttpServletResponse response;
+	private HttpServletResponse response;
 
 	@GetMapping("/AccountingDetail")
 	public String AccountingDetail(Model model, HttpServletRequest request) {
@@ -150,11 +149,11 @@ public class AccountingPagesController {
 			return "redirect:" + url; // 重新導向到指定的url
 		}
 		// -------判斷登入_end----//
-		//如果沒有id則將網頁狀態設定為403
-		if(userid==null ||userid.isEmpty()) {  
+		// 如果沒有id則將網頁狀態設定為403
+		if (userid == null || userid.isEmpty()) {
 			response.setStatus(403);
 			return null; // 重新導向到指定的url
-			}
+		}
 
 		// 於html使用th:each將AccountingNote的List加入table中印出流水帳列表
 		List<AccountingNoteInterFace> accountingNoteList = AccountingNoteService
@@ -218,11 +217,7 @@ public class AccountingPagesController {
 				model.addAttribute("txtBody", currentCategory.get().getBody());
 			}
 
-		} else {
-//			model.addAttribute("txtCaption", "請輸入標題");
-//			model.addAttribute("txtBody", "請輸入內容");
 		}
-
 		return "/AccountingPages/CategoryDetail";
 	}
 
@@ -260,7 +255,6 @@ public class AccountingPagesController {
 
 		String url = "/AccountingPages/CategoryDetail" + "?id=" + userid + "&CategoryID=" + CategoryID; // 返回元分頁
 		return "redirect:" + url;
-		// return "/AccountingPages/CategoryDetail";
 	}
 
 	@GetMapping("/CategoryList")

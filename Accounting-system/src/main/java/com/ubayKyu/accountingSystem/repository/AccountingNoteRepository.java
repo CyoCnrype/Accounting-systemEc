@@ -28,66 +28,43 @@ public interface AccountingNoteRepository extends JpaRepository<AccountingNote, 
 	@Query(value = "SELECT Max(accounting_note.create_date)" + "FROM accounting_note", nativeQuery = true)
 	LocalDateTime GetLastDate();
 
-	//查詢資料數量
+	// 查詢資料數量
 	@Query(value = "SELECT Count(*)" + "FROM accounting_note", nativeQuery = true)
 	Integer GetCount();
-	
-	//按照ID查表
+
+	// 按照ID查表
 	// 流水帳分類管理的list資料查詢語法、配對到dto的ListedCategory
-	@Query(value = "SELECT  [accid]"
-			+ "      ,[act_type]"
-			+ "      ,[amount]"
-			+ "      ,accounting_note.[body]"
-			+ "      ,accounting_note.[caption]"
-			+ "      ,accounting_note.[categoryid]"
-			+ "      ,accounting_note.[create_date]"
-			+ "      ,accounting_note.[userid]"
-			+ "	  ,category.caption AS categoryCaption"
-			+ "  FROM [AccNoteJava].[dbo].[accounting_note]"
+	@Query(value = "SELECT  [accid]" + "      ,[act_type]" + "      ,[amount]" + "      ,accounting_note.[body]"
+			+ "      ,accounting_note.[caption]" + "      ,accounting_note.[categoryid]"
+			+ "      ,accounting_note.[create_date]" + "      ,accounting_note.[userid]"
+			+ "	  ,category.caption AS categoryCaption" + "  FROM [AccNoteJava].[dbo].[accounting_note]"
 			+ "  LEFT JOIN [category] category   ON category.categoryid = accounting_note.categoryid"
-			+ "  WHERE accounting_note.[userid] =:userid"
-			, nativeQuery = true)
+			+ "  WHERE accounting_note.[userid] =:userid", nativeQuery = true)
 	List<AccountingNoteInterFace> GetAccNotebyUserId(@Param("userid") String userid);
-	
-	//取得登入者的流水帳資訊(Interface)
-    @Query(value = "SELECT A.[accid]"
-                + "        ,A.[act_type]"
-                + "        ,A.[amount]"
-                + "        ,A.[body]"
-                + "        ,A.[caption]"
-                + "        ,A.[categoryid]"
-                + "        ,FORMAT(A.[create_date], 'yyyy/MM/dd') AS [create_date]"
-                + "        ,A.[userid]"
-                + "        ,C.[caption] AS [categoryCaption]"
-                + "    FROM [accounting_note] AS A"
-                + "    LEFT JOIN [category] AS C ON C.[categoryid] = A.[categoryid]"
-                + " WHERE A.[userid] =:userid"
-                + " GROUP BY A.[accid], A.[act_type], A.[amount], A.[body], A.[caption], A.[categoryid], A.[create_date], A.[userid], C.[caption]"
-                + " ORDER BY [create_date] DESC, [amount] DESC"
-                , nativeQuery = true)
-    List<AccountingNoteInterFace> GetAccountingNoteInterfaceListByUserID(@Param("userid") String userid);
-    
-    //得到小計(全體)
-    @Query(value = " SELECT SUM(amount) AS Amount"
-            + "    FROM accounting_note"
-            + "    WHERE userid=:userid AND act_type=:actType"
-            , nativeQuery = true)
-    Integer FindAccountingNoteAmount(@Param("userid") String userid, @Param("actType") int actType);
-    
-    //得到小計(單月)
-    @Query(value = "DECLARE @firstdate  DATETIME"
-    		+ " SET @firstdate  = dateadd(m, datediff(m,0,getdate()),0)"
-    		+ " DECLARE @lastdate  DATETIME"
-    		+ " SET @lastdate  =dateadd(day ,-1, dateadd(m, datediff(m,0,getdate())+1,0))"
-    		+ " SELECT SUM(amount) AS Amount"
-    		+ " FROM accounting_note"
-    		+ " WHERE userid=:userid AND act_type=:actType AND create_date BETWEEN @firstdate AND @lastdate"
-    		,nativeQuery = true)
+
+	// 取得登入者的流水帳資訊(Interface)
+	@Query(value = "SELECT A.[accid]" + "        ,A.[act_type]" + "        ,A.[amount]" + "        ,A.[body]"
+			+ "        ,A.[caption]" + "        ,A.[categoryid]"
+			+ "        ,FORMAT(A.[create_date], 'yyyy/MM/dd') AS [create_date]" + "        ,A.[userid]"
+			+ "        ,C.[caption] AS [categoryCaption]" + "    FROM [accounting_note] AS A"
+			+ "    LEFT JOIN [category] AS C ON C.[categoryid] = A.[categoryid]" + " WHERE A.[userid] =:userid"
+			+ " GROUP BY A.[accid], A.[act_type], A.[amount], A.[body], A.[caption], A.[categoryid], A.[create_date], A.[userid], C.[caption]"
+			+ " ORDER BY [create_date] DESC, [amount] DESC", nativeQuery = true)
+	List<AccountingNoteInterFace> GetAccountingNoteInterfaceListByUserID(@Param("userid") String userid);
+
+	// 得到小計(全體)
+	@Query(value = " SELECT SUM(amount) AS Amount" + "    FROM accounting_note"
+			+ "    WHERE userid=:userid AND act_type=:actType", nativeQuery = true)
+	Integer FindAccountingNoteAmount(@Param("userid") String userid, @Param("actType") int actType);
+
+	// 得到小計(單月)
+	@Query(value = "DECLARE @firstdate  DATETIME" + " SET @firstdate  = dateadd(m, datediff(m,0,getdate()),0)"
+			+ " DECLARE @lastdate  DATETIME"
+			+ " SET @lastdate  =dateadd(day ,-1, dateadd(m, datediff(m,0,getdate())+1,0))"
+			+ " SELECT SUM(amount) AS Amount" + " FROM accounting_note"
+			+ " WHERE userid=:userid AND act_type=:actType AND create_date BETWEEN @firstdate AND @lastdate", nativeQuery = true)
 	Integer FindAccountingNoteAmountOfMonth(@Param("userid") String userid, @Param("actType") int actType);
 
-    @Query(value = "    SELECT *"
-            + "    FROM accounting_note"
-            + "    WHERE userid=:userid "
-            , nativeQuery = true)
-    List<AccountingNote> FindAccountingNoteByUserID(@Param("userid") String userid);
+	@Query(value = "    SELECT *" + "    FROM accounting_note" + "    WHERE userid=:userid ", nativeQuery = true)
+	List<AccountingNote> FindAccountingNoteByUserID(@Param("userid") String userid);
 }

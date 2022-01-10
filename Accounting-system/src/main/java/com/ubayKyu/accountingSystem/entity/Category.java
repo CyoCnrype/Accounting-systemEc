@@ -11,20 +11,20 @@ import javax.persistence.Table;
 @Table(name = "Category")
 public class Category {
 
-	//	分類辨識碼
+	// 分類辨識碼
 	@Id
 	@Column(name = "CategoryID", nullable = false, columnDefinition = "uniqueidentifier")
 	private String CategoryID;
-	//	使用者辨識碼
+	// 使用者辨識碼
 	@Column(name = "UserID", nullable = false, columnDefinition = "uniqueidentifier")
 	private String UserID;
-	//	標題(分類)
+	// 標題(分類)
 	@Column(name = "Caption", nullable = false, columnDefinition = "nvarchar(100)")
 	private String Caption;
-	//	備註
+	// 備註
 	@Column(name = "Body", nullable = true, columnDefinition = "nvarchar(500)")
 	private String Body;
-	//	建立時間
+	// 建立時間
 	@Column(name = "CreateDate", nullable = false, columnDefinition = "datetime default getdate()")
 	private LocalDateTime CreateDate;
 

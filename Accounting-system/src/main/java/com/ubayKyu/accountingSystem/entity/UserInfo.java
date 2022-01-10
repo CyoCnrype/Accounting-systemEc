@@ -102,7 +102,6 @@ public class UserInfo {
 		CreateDate = createDate;
 	}
 
-
 	public LocalDateTime getEditDate() {
 		return EditDate;
 	}

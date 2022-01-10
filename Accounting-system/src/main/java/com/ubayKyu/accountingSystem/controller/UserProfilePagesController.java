@@ -32,7 +32,6 @@ public class UserProfilePagesController {
 
 	@GetMapping("/Login")
 	public String Login(Model model) {
-
 		// 判斷session、如果為空則令其登入、否則直接進下一頁
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
@@ -41,7 +40,6 @@ public class UserProfilePagesController {
 		// -------判斷登入----//
 		String url = "/UserProfilePages/UserProfile"; // 重新導向到指定的url
 		return "redirect:" + url; // 重新導向到指定的url
-
 	}
 
 	@GetMapping("/UserProfile")
@@ -55,26 +53,21 @@ public class UserProfilePagesController {
 		// 取得登入者資訊
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
 		String userID = user.getUserID();
-
 		Optional<UserInfo> userInfoForEdit = UserInfoService.findByUserID(userID);
 		model.addAttribute("account", userInfoForEdit.get().getAccount());
 		model.addAttribute("name", userInfoForEdit.get().getName());
 		model.addAttribute("email", userInfoForEdit.get().getEmail());
-
 		return "/UserProfilePages/UserProfile.html";
 	}
 
 	@PostMapping("/UserProfile")
 	public String UserProfilePageUpdate(Model model, @RequestParam(value = "txtName", required = false) String txtName,
 			@RequestParam(value = "txtEmail", required = false) String txtEmail, RedirectAttributes redirectAttrs) {
-
 		// -------判斷登入----//
 		if (!LoginService.IsLogin(session)) {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-		// -------判斷登入----//
-
 		// 取得登入者資訊
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
 		String userID = user.getUserID();
@@ -90,7 +83,6 @@ public class UserProfilePagesController {
 	// 登入(帳號、密碼)
 	public String getLogin(@RequestParam("account") String account, @RequestParam("password") String password,
 			Model model, RedirectAttributes redirAttrs) {
-
 		boolean result = false;
 		UserInfo currentUserInfo = UserInfoRepository.GetUserByLogin(account, password);
 		if (currentUserInfo != null) {// 有抓到值=登入成功
@@ -101,7 +93,6 @@ public class UserProfilePagesController {
 			int userLevel = currentUserInfo.getUserLevel();
 			session.setAttribute("UserLevel", userLevel);
 		}
-
 		if (result == true) {// 如果登入成功
 			redirAttrs.addFlashAttribute("message", "登入成功");
 			String url = "/UserProfilePages/UserProfile"; // 重新導向到指定的url
@@ -111,7 +102,5 @@ public class UserProfilePagesController {
 			String url = "/Default/Default";
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-
 	}
-
 }

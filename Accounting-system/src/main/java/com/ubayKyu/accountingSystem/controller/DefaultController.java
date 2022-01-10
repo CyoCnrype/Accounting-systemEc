@@ -27,7 +27,7 @@ public class DefaultController {
 	@Autowired
 	HttpSession session;
 
-	//初始頁
+	// 初始頁
 	@GetMapping("/Default")
 	public String Default(Model model) {
 
@@ -50,12 +50,10 @@ public class DefaultController {
 		model.addAttribute("lastAccRecordTime", oldestAccDate);
 		model.addAttribute("recordNumber", accSize);
 		model.addAttribute("menberNumber", userSize);
-		// System.out.println();
-
 		return "Default.html";
 	}
 
-	//登出導向mapping
+	// 登出導向mapping
 	@GetMapping("/Logout")
 	public String Logout(Model model, RedirectAttributes redirAttrs) {
 		session.removeAttribute("LoginState");
@@ -63,14 +61,4 @@ public class DefaultController {
 		String url = "/Default/Default"; // 重新導向到指定的url
 		return "redirect:" + url; // 重新導向到指定的url
 	}
-
-//	// 驗證彈出視窗
-//	@ResponseBody
-//	public String testJS() {
-//		return "<Script language='JavaScript'>alert('回應填寫成功!');</Script>";
-//		// return "<Script
-//		// language='JavaScript'>alert('回應填寫成功!');location.href='/Default/Default';
-//		// </Script>";
-//	}
-
 }

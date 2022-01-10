@@ -51,7 +51,7 @@ public class BackEndPagesController {
 		// -------判斷登入_end----//
 
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
-		if (user.getUserLevel() != 0) { 
+		if (user.getUserLevel() != 0) {
 			boolean managerRetired = (boolean) session.getAttribute("managerRetired");
 			if (managerRetired)
 				redirectAttrs.addFlashAttribute("message", "管理員卸任成功、辛苦了\n");
@@ -120,14 +120,13 @@ public class BackEndPagesController {
 			message = "新增成功\n";
 		}
 
-		if (User.getId().equals(userID)) { 
+		if (User.getId().equals(userID)) {
 			UserInfo NewSessionUserInfo = UserInfoService.findByUserID(userID).get();
 			session.setAttribute("LoginState", NewSessionUserInfo);
 		}
 		UserInfoService.SaveUserInfo(UserInfo, userID, txtAccount, txtName, txtEmail, ddlUserLevel);
 		redirAttrs.addFlashAttribute("message", message);
 		return "redirect:/BackEndPages/UserDetail?userID=" + userID;
-
 	}
 
 	@GetMapping("/UserList")
@@ -144,11 +143,9 @@ public class BackEndPagesController {
 		Integer userLevel = user.getUserLevel();
 		if (userLevel != 0)
 			return "redirect:/UserProfilePages/UserProfile";
-
 		// 於html使用th:each將UserInfo的List加入table中印出會員列表
 		List<UserInfoInterface> userInfoList = UserInfoService.getUserInfoInterface();
 		model.addAttribute("userInfoListTable", userInfoList);
-
 		return "/BackEndPages/UserList";
 	}
 
@@ -160,7 +157,6 @@ public class BackEndPagesController {
 			String url = "/Default/Logout"; // 重新導向到指定的url
 			return "redirect:" + url; // 重新導向到指定的url
 		}
-
 		// 取得登入者資訊
 		UserInfo user = (UserInfo) session.getAttribute("LoginState");
 		String currentUserID = user.getUserID();
@@ -168,7 +164,6 @@ public class BackEndPagesController {
 		String saveIfDeleteSelf = "";
 		Integer userInfoCount = 0;
 		String message = ""; // 提示訊息
-
 		if (userIDsForDel != null) {
 			for (String eachUserID : userIDsForDel) {
 
@@ -176,8 +171,6 @@ public class BackEndPagesController {
 				String account = userInfoToDel.get().getAccount();
 				String logMessage = "管理者 " + currentAccount + " 於 " + LocalDate.now() + " 刪除使用者 " + account;// 寫入log之訊息
 				message += logMessage + "\n";
-
-				// System.out.println("GetMac.getMacOnWindow()=" + macName);
 				try {
 					WriteTextService.writeToTextByUserName(logMessage, username);
 				} catch (IOException e) {
@@ -192,18 +185,14 @@ public class BackEndPagesController {
 			}
 			if (currentUserID.equals(saveIfDeleteSelf)) {// 刪除自己後登出
 				message += "已刪除自己，回到預設頁" + "\n";
-				// redirectAttrs.addFlashAttribute("message", "已刪除自己，回到預設頁");
 				LoginService.RemoveLoginSession(session);
 				return "redirect:/Default/Default";
 			}
 			message += "已將選取之會員及其流水帳、分類刪除，剩餘 " + userInfoCount + " 位會員" + "\n";
-			// redirectAttrs.addFlashAttribute("message", "已將選取之會員及其流水帳、分類刪除，剩餘 " +
-			// userInfoCount + " 位會員");
 		} else {
 			message += "未勾選任何項目" + "\n";
 			redirectAttrs.addFlashAttribute("message", "未勾選任何項目");
 		}
-
 		redirectAttrs.addFlashAttribute("message", message);
 		return "redirect:/BackEndPages/UserList";
 	}
